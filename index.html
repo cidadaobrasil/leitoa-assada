@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Leitoa Assada V3.0 — forno doméstico</title>
 <meta name="description" content="Guia completo para meia banda de leitoa assada: receita interativa, PDF, guia de bolso, mapa mental, áudio e vídeo. Inspirada na Bairrada, adaptada ao forno doméstico.">
+<link rel="canonical" href="https://cidadaobrasil.github.io/leitoa-assada/">
+<meta name="theme-color" content="#19100b">
 
 <!-- Open Graph / WhatsApp / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cidadaobrasil.github.io/leitoa-assada/">
 <meta property="og:title" content="Leitoa Assada V3.0 — forno doméstico">
 <meta property="og:description" content="Guia completo para meia banda de leitoa assada: receita interativa, PDF, guia de bolso, mapa mental, áudio e vídeo.">
-<meta property="og:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.png">
+<meta property="og:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_BR">
@@ -20,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Leitoa Assada V3.0 — forno doméstico">
 <meta name="twitter:description" content="Guia completo para meia banda de leitoa assada: receita interativa, PDF, guia de bolso, mapa mental, áudio e vídeo.">
-<meta name="twitter:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.png">
+<meta name="twitter:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.jpg">
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +31,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== DESIGN TOKENS ===== */
+/* ===== TOKENS ===== */
 :root {
   --char:       #13090a;
   --ember:      #2a190f;
@@ -42,381 +45,451 @@
   --cream:      #f1e6d2;
   --cream-dim:  #b7a98c;
   --sage:       #93a37f;
-  --line:       rgba(241,230,210,0.12);
-  --line-strong:rgba(241,230,210,0.22);
+  --line:       rgba(241,230,210,0.13);
+  --line-strong:rgba(241,230,210,0.24);
   --font-d: 'Fraunces', Georgia, serif;
   --font-b: 'Work Sans', system-ui, sans-serif;
   --r: 16px;
   --shadow: 0 4px 24px rgba(0,0,0,0.45);
+  --dock-h: 0px; /* set to 68px on mobile via media query */
 }
 
-/* ===== RESET & BASE ===== */
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* ===== RESET ===== */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
 body {
   background: var(--char);
   color: var(--cream);
   font-family: var(--font-b);
+  font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-img, video { max-width: 100%; display: block; }
-a { color: var(--gold-soft); text-decoration: none; }
-button { cursor: pointer; border: none; background: none; font-family: var(--font-b); }
-h1, h2, h3 { font-family: var(--font-d); font-weight: 700; line-height: 1.1; }
+img,video { max-width:100%; display:block; }
+a { color:var(--gold-soft); text-decoration:none; }
+button { cursor:pointer; border:none; background:none; font-family:var(--font-b); }
+h1,h2,h3 { font-family:var(--font-d); font-weight:700; line-height:1.1; }
 
 /* ===== SKIP LINK ===== */
 .skip-link {
-  position: absolute; top: -100px; left: 16px; z-index: 9999;
-  background: var(--gold); color: var(--char); padding: 8px 16px;
-  border-radius: 6px; font-weight: 700; transition: top 0.2s;
+  position:absolute; top:-100px; left:16px; z-index:9999;
+  background:var(--gold); color:var(--char); padding:8px 16px;
+  border-radius:6px; font-weight:700; transition:top 0.2s;
 }
-.skip-link:focus { top: 16px; }
+.skip-link:focus { top:16px; }
 
 /* ===== NAVBAR ===== */
 .navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(19, 9, 10, 0.88);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid var(--line);
-  padding: 0 16px;
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(19,9,10,0.9);
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  border-bottom:1px solid var(--line);
+  padding:0 12px;
 }
 .navbar-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; align-items: center; gap: 8px;
-  height: 56px;
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; gap:6px;
+  height:52px;
 }
 .nav-logo {
-  font-family: var(--font-d); font-size: 16px; font-weight: 700;
-  color: var(--gold-soft); white-space: nowrap; flex-shrink: 0;
-  margin-right: 8px;
+  font-family:var(--font-d); font-size:15px; font-weight:700;
+  color:var(--gold-soft); white-space:nowrap; flex-shrink:0; margin-right:6px;
 }
-.nav-logo span { font-style: italic; color: var(--wine-light); }
+.nav-logo span { font-style:italic; color:var(--wine-light); }
 .nav-tabs {
-  display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
-  flex: 1; padding: 4px 0;
+  display:flex; gap:2px; overflow-x:auto; scrollbar-width:none;
+  flex:1; padding:4px 0; position:relative;
 }
-.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tabs::-webkit-scrollbar { display:none; }
+/* fade edge to hint scrollability */
+.nav-tabs::after {
+  content:''; position:absolute; right:0; top:0; bottom:0; width:32px;
+  background:linear-gradient(to right, transparent, rgba(19,9,10,0.85));
+  pointer-events:none;
+}
 .nav-tab {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 13px; border-radius: 100px;
-  font-size: 13px; font-weight: 600; color: var(--cream-dim);
-  white-space: nowrap; transition: all 0.2s ease;
-  border: 1px solid transparent;
+  display:inline-flex; align-items:center; gap:5px;
+  padding:7px 12px; border-radius:100px;
+  font-size:13px; font-weight:600; color:var(--cream-dim);
+  white-space:nowrap; transition:all 0.2s ease;
+  border:1px solid transparent; min-height:40px;
 }
-.nav-tab:hover { color: var(--cream); background: rgba(241,230,210,0.07); }
+.nav-tab:hover { color:var(--cream); background:rgba(241,230,210,0.07); }
 .nav-tab.is-active {
-  background: rgba(217,165,68,0.15);
-  color: var(--gold-soft);
-  border-color: rgba(217,165,68,0.3);
+  background:rgba(217,165,68,0.15);
+  color:var(--gold-soft);
+  border-color:rgba(217,165,68,0.3);
 }
-.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; }
+.nav-tab svg { width:14px; height:14px; flex-shrink:0; }
 
 /* ===== HERO ===== */
 .hero {
-  position: relative; min-height: 100svh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  padding: 80px 24px 60px;
-  overflow: hidden;
+  position:relative; min-height:100svh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:80px 24px 60px;
+  overflow:hidden;
 }
 .hero-bg {
-  position: absolute; inset: 0;
+  position:absolute; inset:0;
   background:
-    radial-gradient(60% 50% at 50% 0%, rgba(217,165,68,0.18), transparent 70%),
-    radial-gradient(40% 35% at 80% 80%, rgba(124,38,50,0.22), transparent 60%),
+    radial-gradient(60% 50% at 50% 0%, rgba(217,165,68,0.2), transparent 70%),
+    radial-gradient(40% 35% at 80% 80%, rgba(124,38,50,0.24), transparent 60%),
     var(--char);
-  z-index: 0;
+  z-index:0;
 }
 .hero-bg-img {
-  position: absolute; inset: 0;
-  background-image: url('assets/og-image.png');
-  background-size: cover; background-position: center;
-  opacity: 0.12; z-index: 0;
-  filter: saturate(0.6);
+  position:absolute; inset:0;
+  background-image:url('assets/og-image.jpg');
+  background-size:cover; background-position:center;
+  opacity:0.14; z-index:0; filter:saturate(0.6);
 }
-.hero-content { position: relative; z-index: 1; max-width: 640px; }
+.hero-content { position:relative; z-index:1; max-width:640px; }
 .hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(217,165,68,0.12); border: 1px solid rgba(217,165,68,0.3);
-  border-radius: 100px; padding: 5px 14px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--gold-soft);
-  margin-bottom: 24px;
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(217,165,68,0.12); border:1px solid rgba(217,165,68,0.3);
+  border-radius:100px; padding:5px 14px;
+  font-size:11px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--gold-soft); margin-bottom:22px;
 }
 .hero-eyebrow::before {
-  content: ''; display: block; width: 6px; height: 6px;
-  border-radius: 50%; background: var(--gold);
-  animation: pulse 2s ease infinite;
+  content:''; display:block; width:6px; height:6px;
+  border-radius:50%; background:var(--gold);
+  animation:pulse 2s ease infinite;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.75); }
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(0.75); }
 }
 .hero h1 {
-  font-size: clamp(46px, 13vw, 80px);
-  letter-spacing: -0.02em; color: var(--cream);
-  margin-bottom: 8px;
+  font-size:clamp(44px,13vw,80px);
+  letter-spacing:-0.02em; color:var(--cream); margin-bottom:8px;
 }
-.hero h1 em { font-style: italic; color: var(--gold-soft); }
+.hero h1 em { font-style:italic; color:var(--gold-soft); }
 .hero-subtitle {
-  font-family: var(--font-d); font-style: italic;
-  font-size: clamp(16px, 4vw, 22px); color: var(--cream-dim);
-  margin-bottom: 28px;
+  font-family:var(--font-d); font-style:italic;
+  font-size:clamp(16px,4vw,22px); color:var(--cream-dim); margin-bottom:26px;
 }
-.hero-subtitle span { color: var(--wine-light); font-style: normal; }
+.hero-subtitle span { color:var(--wine-light); font-style:normal; }
 .hero-badges {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-  margin-bottom: 36px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:32px;
 }
 .badge {
-  font-size: 12px; font-weight: 500; color: var(--cream-dim);
-  border: 1px solid var(--line-strong); border-radius: 100px;
-  padding: 5px 12px;
+  font-size:12px; font-weight:500; color:var(--cream-dim);
+  border:1px solid var(--line-strong); border-radius:100px; padding:5px 12px;
 }
-.hero-actions {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
-}
+.hero-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--gold); color: var(--char);
-  font-weight: 700; font-size: 15px;
-  padding: 14px 26px; border-radius: 100px;
-  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 20px rgba(217,165,68,0.35);
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--gold); color:var(--char);
+  font-weight:700; font-size:15px; min-height:52px;
+  padding:14px 28px; border-radius:100px;
+  transition:transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow:0 4px 20px rgba(217,165,68,0.35);
 }
-.btn-primary:hover {
-  background: var(--gold-soft); transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(217,165,68,0.45);
-}
-.btn-primary:active { transform: scale(0.97); }
+.btn-primary:hover { background:var(--gold-soft); transform:translateY(-2px); box-shadow:0 8px 28px rgba(217,165,68,0.45); }
+.btn-primary:active { transform:scale(0.97); }
 .btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  border: 1.5px solid var(--line-strong); color: var(--cream);
-  font-weight: 600; font-size: 14px;
-  padding: 13px 22px; border-radius: 100px;
-  transition: all 0.2s ease;
+  display:inline-flex; align-items:center; gap:8px;
+  border:1.5px solid var(--line-strong); color:var(--cream);
+  font-weight:600; font-size:14px; min-height:48px;
+  padding:12px 22px; border-radius:100px;
+  transition:all 0.2s ease;
 }
-.btn-ghost:hover {
-  border-color: var(--gold-soft); color: var(--gold-soft);
-  background: rgba(217,165,68,0.08);
-}
-.btn-ghost:active { transform: scale(0.97); }
-.btn-icon-svg { width: 16px; height: 16px; flex-shrink: 0; }
+.btn-ghost:hover { border-color:var(--gold-soft); color:var(--gold-soft); background:rgba(217,165,68,0.08); }
+.btn-ghost:active { transform:scale(0.97); }
+.btn-icon-svg { width:16px; height:16px; flex-shrink:0; }
 .hero-scroll {
-  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-  z-index: 1; animation: bounce 2.2s ease infinite;
-  color: var(--cream-dim); opacity: 0.6;
+  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+  z-index:1; animation:bounce 2.2s ease infinite; color:var(--cream-dim); opacity:0.6;
 }
 @keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(7px); }
+  0%,100% { transform:translateX(-50%) translateY(0); }
+  50% { transform:translateX(-50%) translateY(7px); }
 }
-.hero-scroll svg { width: 24px; height: 24px; }
+.hero-scroll svg { width:24px; height:24px; }
 
 /* ===== SECTIONS ===== */
-.site-main { padding-top: 56px; }
+.site-main { padding-top:52px; }
 .section {
-  max-width: 860px; margin: 0 auto;
-  padding: 72px 24px;
-  display: none;
-  animation: fadeUp 0.4s ease both;
+  max-width:860px; margin:0 auto;
+  padding:64px 24px calc(80px + var(--dock-h));
+  display:none;
+  animation:fadeUp 0.35s ease both;
 }
-.section.is-active { display: block; }
+.section.is-active { display:block; }
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-.section-header { margin-bottom: 40px; }
+.section-header { margin-bottom:36px; }
 .section-label {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--wine-light);
-  margin-bottom: 12px;
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--wine-light); margin-bottom:12px;
 }
 .section-label::before {
-  content: ''; display: block; width: 24px; height: 2px;
-  background: var(--wine-light); border-radius: 2px;
+  content:''; display:block; width:24px; height:2px;
+  background:var(--wine-light); border-radius:2px;
 }
-.section-header h2 {
-  font-size: clamp(28px, 6vw, 40px); color: var(--cream);
-}
-.section-header p {
-  font-size: 16px; color: var(--cream-dim); margin-top: 10px;
-  max-width: 52ch;
-}
+.section-header h2 { font-size:clamp(26px,6vw,40px); color:var(--cream); }
+.section-header p { font-size:16px; color:var(--cream-dim); margin-top:10px; max-width:52ch; }
 
-/* ===== CARD ===== */
+/* ===== CARDS ===== */
 .card {
-  background: linear-gradient(135deg, var(--ember) 0%, rgba(42,25,15,0.8) 100%);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r); padding: 28px;
-  box-shadow: var(--shadow);
+  background:linear-gradient(135deg, var(--ember) 0%, rgba(42,25,15,0.8) 100%);
+  border:1px solid var(--line-strong); border-radius:var(--r); padding:28px;
+  box-shadow:var(--shadow);
 }
 
-/* ===== RECEITA SECTION ===== */
-.recipe-cta-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  margin-bottom: 28px;
-}
-@media (max-width: 500px) { .recipe-cta-grid { grid-template-columns: 1fr; } }
+/* ===== RECEITA CTA ===== */
+.recipe-cta-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
 .recipe-cta-card {
-  background: var(--ember-2); border: 1px solid var(--line-strong);
-  border-radius: var(--r); padding: 20px 20px 16px;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: border-color 0.2s, transform 0.2s;
+  background:var(--ember-2); border:1px solid var(--line-strong);
+  border-radius:var(--r); padding:20px 18px 16px;
+  display:flex; flex-direction:column; gap:8px;
+  transition:border-color 0.2s, transform 0.2s;
 }
-.recipe-cta-card:hover { border-color: rgba(217,165,68,0.4); transform: translateY(-2px); }
-.recipe-cta-icon { font-size: 28px; }
-.recipe-cta-title { font-family: var(--font-d); font-size: 18px; font-weight: 600; color: var(--cream); }
-.recipe-cta-desc { font-size: 13px; color: var(--cream-dim); }
+.recipe-cta-card:hover { border-color:rgba(217,165,68,0.4); transform:translateY(-2px); }
+.recipe-cta-icon { font-size:26px; }
+.recipe-cta-title { font-family:var(--font-d); font-size:17px; font-weight:600; color:var(--cream); }
+.recipe-cta-desc { font-size:14px; color:var(--cream-dim); }
 .btn-cta-full {
-  display: block; width: 100%; text-align: center;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-  color: var(--char); font-weight: 700; font-size: 16px;
-  padding: 16px; border-radius: 12px;
-  transition: opacity 0.2s, transform 0.15s;
-  box-shadow: 0 4px 20px rgba(217,165,68,0.3);
+  display:block; width:100%; text-align:center;
+  background:linear-gradient(135deg, var(--gold), var(--gold-dim));
+  color:var(--char); font-weight:700; font-size:16px;
+  padding:18px; border-radius:12px; min-height:56px;
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity 0.2s, transform 0.15s;
+  box-shadow:0 4px 20px rgba(217,165,68,0.3);
 }
-.btn-cta-full:hover { opacity: 0.9; transform: translateY(-1px); }
-.btn-cta-full:active { transform: scale(0.98); }
+.btn-cta-full:hover { opacity:0.9; transform:translateY(-1px); }
+.btn-cta-full:active { transform:scale(0.98); }
 
 /* ===== IMAGE SECTION ===== */
 .image-wrap {
-  border-radius: var(--r); overflow: hidden;
-  border: 1px solid var(--line-strong);
-  position: relative; cursor: zoom-in;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius:var(--r); overflow:hidden;
+  border:1px solid var(--line-strong);
+  position:relative; cursor:zoom-in;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
 }
-.image-wrap:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.6); transform: translateY(-2px); }
-.image-wrap img { width: 100%; height: auto; display: block; }
+.image-wrap:hover { box-shadow:0 12px 40px rgba(0,0,0,0.6); transform:translateY(-2px); }
+.image-wrap img, .image-wrap source { width:100%; height:auto; display:block; }
+.image-wrap picture img { width:100%; height:auto; display:block; }
 .image-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,5,3,0.7) 0%, transparent 50%);
-  display: flex; align-items: flex-end; padding: 20px;
-  opacity: 0; transition: opacity 0.25s;
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(13,5,3,0.7) 0%, transparent 50%);
+  display:flex; align-items:flex-end; padding:20px;
+  opacity:0; transition:opacity 0.25s;
 }
-.image-wrap:hover .image-overlay { opacity: 1; }
-.btn-row {
-  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
-}
+.image-wrap:hover .image-overlay, .image-wrap:focus .image-overlay { opacity:1; }
+.btn-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
 .btn-action {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 20px; border-radius: 10px;
-  font-weight: 600; font-size: 14px;
-  transition: all 0.18s ease;
-  border: 1.5px solid var(--line-strong); color: var(--cream);
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 20px; border-radius:10px;
+  font-weight:600; font-size:14px; min-height:48px;
+  transition:all 0.18s ease;
+  border:1.5px solid var(--line-strong); color:var(--cream);
 }
-.btn-action:hover { border-color: var(--gold-soft); color: var(--gold-soft); background: rgba(217,165,68,0.08); }
+.btn-action:hover { border-color:var(--gold-soft); color:var(--gold-soft); background:rgba(217,165,68,0.08); }
 .btn-action.primary {
-  background: var(--wine); border-color: var(--wine);
-  color: var(--cream); box-shadow: 0 4px 16px rgba(124,38,50,0.35);
+  background:var(--wine); border-color:var(--wine); color:var(--cream);
+  box-shadow:0 4px 16px rgba(124,38,50,0.35);
 }
-.btn-action.primary:hover { background: var(--wine-soft); border-color: var(--wine-soft); }
-.btn-action svg { width: 16px; height: 16px; }
+.btn-action.primary:hover { background:var(--wine-soft); border-color:var(--wine-soft); }
+.btn-action svg { width:16px; height:16px; }
 
-/* ===== PDF SECTION ===== */
-.pdf-card {
-  background: var(--ember); border: 1px solid var(--line-strong);
-  border-radius: var(--r); padding: 40px 28px; text-align: center;
+/* ===== PDF / SLIDES CARDS ===== */
+.dl-card {
+  background:var(--ember); border:1px solid var(--line-strong);
+  border-radius:var(--r); padding:36px 24px; text-align:center;
 }
-.pdf-icon { font-size: 56px; margin-bottom: 16px; }
-.pdf-card h3 { font-size: 22px; margin-bottom: 8px; }
-.pdf-card p { font-size: 14px; color: var(--cream-dim); margin-bottom: 24px; }
+.dl-card-icon { font-size:52px; margin-bottom:14px; }
+.dl-card h3 { font-size:22px; margin-bottom:8px; }
+.dl-card p { font-size:15px; color:var(--cream-dim); margin-bottom:22px; max-width:42ch; margin-left:auto; margin-right:auto; }
+.dl-card .hint { font-size:12px; color:var(--cream-dim); margin-top:18px; opacity:0.7; }
 .btn-download-big {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: linear-gradient(135deg, var(--wine), var(--wine-soft));
-  color: var(--cream); font-weight: 700; font-size: 16px;
-  padding: 16px 32px; border-radius: 100px;
-  box-shadow: 0 6px 24px rgba(124,38,50,0.4);
-  transition: transform 0.15s, box-shadow 0.2s;
+  display:inline-flex; align-items:center; gap:10px;
+  background:linear-gradient(135deg, var(--wine), var(--wine-soft));
+  color:var(--cream); font-weight:700; font-size:16px; min-height:56px;
+  padding:16px 32px; border-radius:100px;
+  box-shadow:0 6px 24px rgba(124,38,50,0.4);
+  transition:transform 0.15s, box-shadow 0.2s;
 }
-.btn-download-big:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(124,38,50,0.5); }
-.btn-download-big:active { transform: scale(0.97); }
-.btn-download-big svg { width: 20px; height: 20px; }
+.btn-download-big:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(124,38,50,0.5); }
+.btn-download-big:active { transform:scale(0.97); }
+.btn-download-big svg { width:20px; height:20px; }
 
-/* ===== AUDIO SECTION ===== */
-.audio-player-wrap { margin-bottom: 20px; }
-audio {
-  width: 100%; border-radius: 12px;
-  accent-color: var(--gold);
-  background: var(--ember-2);
-}
+/* ===== AUDIO ===== */
+.audio-player-wrap { margin-bottom:18px; }
+audio { width:100%; border-radius:12px; accent-color:var(--gold); background:var(--ember-2); }
 
-/* ===== VIDEO SECTION ===== */
+/* ===== VIDEO ===== */
 .video-wrap {
-  border-radius: var(--r); overflow: hidden;
-  border: 1px solid var(--line-strong);
-  background: #000; position: relative;
-  box-shadow: var(--shadow);
+  border-radius:var(--r); overflow:hidden;
+  border:1px solid var(--line-strong);
+  background:#000; position:relative;
+  box-shadow:var(--shadow);
 }
-video {
-  width: 100%; display: block;
-  max-height: 70svh; object-fit: contain;
-  background: #000;
-}
+video { width:100%; display:block; max-height:70svh; object-fit:contain; background:#000; }
 
-/* ===== SLIDES SECTION ===== */
-.slides-card {
-  background: var(--ember); border: 1px solid var(--line-strong);
-  border-radius: var(--r); padding: 40px 28px; text-align: center;
+/* ===== GUIA HTML ===== */
+.guia-html-label {
+  font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--wine-light); margin-bottom:20px; margin-top:36px;
+  display:flex; align-items:center; gap:8px;
 }
-.slides-icon { font-size: 56px; margin-bottom: 16px; }
-.slides-card h3 { font-size: 22px; margin-bottom: 8px; }
-.slides-card p { font-size: 14px; color: var(--cream-dim); margin-bottom: 24px; }
+.guia-html-label::before { content:''; display:block; width:20px; height:2px; background:var(--wine-light); border-radius:2px; }
+.guia-steps { display:grid; gap:14px; }
+.guia-step {
+  background:var(--ember); border:1px solid var(--line-strong);
+  border-radius:14px; padding:18px 18px 16px;
+  display:grid; grid-template-columns:40px 1fr; gap:0 14px;
+  transition:border-color 0.2s;
+}
+.guia-step:hover { border-color:rgba(217,165,68,0.3); }
+.guia-num {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg, var(--wine), var(--wine-soft));
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-d); font-size:15px; font-weight:700;
+  flex-shrink:0; margin-top:2px;
+}
+.guia-body h3 { font-family:var(--font-b); font-size:15px; font-weight:700; margin-bottom:6px; color:var(--gold-soft); }
+.guia-body p { font-size:15px; color:var(--cream-dim); line-height:1.65; margin:0; }
+.guia-body p strong { color:var(--cream); font-weight:600; }
+.guia-final {
+  background:linear-gradient(135deg, rgba(124,38,50,0.2), rgba(42,25,15,0.6));
+  border:1px solid rgba(217,165,68,0.25); border-radius:14px;
+  padding:18px 20px; margin-top:14px;
+}
+.guia-final p { font-size:15px; color:var(--cream-dim); margin:0 0 6px; }
+.guia-final p:last-child { margin:0; }
+.guia-final strong { color:var(--gold-soft); }
+
+/* ===== DOWNLOADS SECTION ===== */
+.downloads-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.dl-mini-card {
+  background:var(--ember); border:1px solid var(--line-strong);
+  border-radius:14px; padding:20px 16px 16px;
+  display:flex; flex-direction:column; gap:10px;
+  transition:border-color 0.2s, transform 0.2s;
+}
+.dl-mini-card:hover { border-color:rgba(217,165,68,0.3); transform:translateY(-2px); }
+.dl-mini-icon { font-size:28px; }
+.dl-mini-name { font-family:var(--font-d); font-size:16px; font-weight:600; color:var(--cream); }
+.dl-mini-type { font-size:12px; color:var(--cream-dim); font-family:monospace; }
+.dl-mini-btns { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.btn-dl-sm {
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:10px 14px; border-radius:8px; min-height:44px;
+  font-size:13px; font-weight:600; transition:all 0.18s;
+}
+.btn-dl-sm.fill { background:var(--wine); color:var(--cream); border:1px solid var(--wine); }
+.btn-dl-sm.fill:hover { background:var(--wine-soft); }
+.btn-dl-sm.ghost { border:1px solid var(--line-strong); color:var(--cream-dim); }
+.btn-dl-sm.ghost:hover { border-color:var(--gold-soft); color:var(--gold-soft); }
+.btn-dl-sm svg { width:14px; height:14px; }
 
 /* ===== FOOTER ===== */
 .site-footer {
-  text-align: center; padding: 40px 24px 56px;
-  border-top: 1px solid var(--line);
-  color: var(--cream-dim); font-size: 13px;
+  text-align:center; padding:40px 24px calc(56px + var(--dock-h));
+  border-top:1px solid var(--line); color:var(--cream-dim); font-size:13px;
 }
 .site-footer strong {
-  font-family: var(--font-d); font-style: italic;
-  color: var(--gold-soft); font-size: 16px; display: block;
-  margin-bottom: 6px;
+  font-family:var(--font-d); font-style:italic;
+  color:var(--gold-soft); font-size:16px; display:block; margin-bottom:6px;
 }
 
 /* ===== LIGHTBOX ===== */
 .lightbox {
-  position: fixed; inset: 0; z-index: 9998;
-  background: rgba(0,0,0,0.94);
-  display: flex; align-items: center; justify-content: center;
-  padding: 16px;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.25s ease;
+  position:fixed; inset:0; z-index:9998;
+  background:rgba(0,0,0,0.95);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:16px; opacity:0; pointer-events:none;
+  transition:opacity 0.25s ease;
 }
-.lightbox.is-open { opacity: 1; pointer-events: all; }
+.lightbox.is-open { opacity:1; pointer-events:all; }
+.lightbox-img-wrap {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  width:100%; overflow:hidden; touch-action:pinch-zoom;
+}
 .lightbox img {
-  max-width: 100%; max-height: 95svh;
-  border-radius: 8px; box-shadow: 0 20px 80px rgba(0,0,0,0.8);
-  object-fit: contain;
+  max-width:100%; max-height:80svh;
+  border-radius:6px; box-shadow:0 20px 80px rgba(0,0,0,0.8);
+  object-fit:contain; user-select:none;
 }
-.lightbox-close {
-  position: absolute; top: 16px; right: 16px;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(241,230,210,0.12); color: var(--cream);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; font-weight: 300;
-  transition: background 0.2s;
+.lightbox-toolbar {
+  display:flex; align-items:center; justify-content:center;
+  gap:12px; padding:14px 0 8px; width:100%; flex-shrink:0;
 }
-.lightbox-close:hover { background: rgba(241,230,210,0.22); }
+.lb-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:10px 18px; border-radius:100px; min-height:44px;
+  font-size:13px; font-weight:600; color:var(--cream);
+  background:rgba(241,230,210,0.1); border:1px solid rgba(241,230,210,0.2);
+  transition:background 0.2s;
+}
+.lb-btn:hover { background:rgba(241,230,210,0.2); }
+.lb-btn svg { width:15px; height:15px; }
+.lb-btn-close {
+  position:absolute; top:12px; right:12px;
+  width:48px; height:48px; border-radius:50%;
+  background:rgba(241,230,210,0.12); color:var(--cream);
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; transition:background 0.2s;
+}
+.lb-btn-close:hover { background:rgba(241,230,210,0.24); }
+
+/* ===== MOBILE DOCK ===== */
+.mobile-dock {
+  display:none; /* shown only on mobile */
+  position:fixed; bottom:0; left:0; right:0; z-index:90;
+  height:64px;
+  background:rgba(19,9,10,0.94);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(217,165,68,0.2);
+  padding:0 env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);
+}
+.mobile-dock-inner {
+  display:flex; align-items:stretch; height:64px;
+}
+.dock-btn {
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; padding:0; color:var(--cream-dim);
+  font-size:10px; font-weight:600; letter-spacing:0.03em;
+  transition:color 0.2s; cursor:pointer;
+  border-right:1px solid rgba(241,230,210,0.07);
+}
+.dock-btn:last-child { border-right:none; }
+.dock-btn.is-active { color:var(--gold-soft); }
+.dock-btn svg { width:20px; height:20px; }
+.dock-btn.is-active svg { color:var(--gold-soft); }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
-  .hero-actions { flex-direction: column; align-items: center; }
-  .btn-primary, .btn-ghost { width: 100%; max-width: 320px; justify-content: center; }
-  .btn-row { flex-direction: column; }
-  .btn-action { justify-content: center; }
+  :root { --dock-h: 64px; }
+  .mobile-dock { display:block; }
+  .hero-actions { flex-direction:column; align-items:center; }
+  .btn-primary, .btn-ghost { width:100%; max-width:340px; justify-content:center; }
+  .btn-row { flex-direction:column; }
+  .btn-action { justify-content:center; }
+  .recipe-cta-grid { grid-template-columns:1fr; }
+  .downloads-grid { grid-template-columns:1fr; }
+  /* hide lower-priority tabs on mobile, show only via dock */
+  #tab-pdf, #tab-slides, #tab-mapa, #tab-audio { display:none; }
+}
+@media (min-width:641px) {
+  .mobile-dock { display:none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *,*::before,*::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
 }
-:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 3px; }
+:focus-visible { outline:2px solid var(--gold-soft); outline-offset:3px; }
 </style>
 </head>
 <body>
@@ -425,20 +498,28 @@ video {
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Imagem em tela cheia">
-  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button>
-  <img id="lightboxImg" src="" alt="">
+  <button class="lb-btn-close" id="lightboxClose" aria-label="Fechar">&times;</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+  <div class="lightbox-toolbar">
+    <a id="lightboxOpen" href="#" target="_blank" rel="noopener" class="lb-btn">
+      <svg width="15" height="15"><use href="#icon-external"/></svg>Abrir em nova aba
+    </a>
+    <a id="lightboxDownload" href="#" download class="lb-btn">
+      <svg width="15" height="15"><use href="#icon-download"/></svg>Baixar
+    </a>
+  </div>
 </div>
 
 <!-- SVG SPRITE -->
 <svg style="display:none" aria-hidden="true">
   <symbol id="icon-recipe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-    <rect x="9" y="3" width="6" height="4" rx="2"/>
-    <path d="M9 12h6M9 16h4"/>
+    <rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/>
   </symbol>
   <symbol id="icon-guide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="4" y="3" width="16" height="18" rx="2"/>
-    <path d="M8 7h8M8 11h8M8 15h5"/>
+    <rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/>
   </symbol>
   <symbol id="icon-pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -446,25 +527,21 @@ video {
     <path d="M8 13h2.5a1.5 1.5 0 0 1 0 3H8v-3zM8 16v2M14 13v5M17 13h-3"/>
   </symbol>
   <symbol id="icon-slides" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="2" y="3" width="20" height="14" rx="2"/>
-    <path d="M8 21h8M12 17v4"/>
+    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
   </symbol>
   <symbol id="icon-mindmap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="3"/>
     <path d="M12 9V5M12 19v-4M9 12H5M19 12h-4M9.5 9.5L6.5 6.5M17.5 6.5l-3 3M9.5 14.5l-3 3M14.5 14.5l3 3"/>
   </symbol>
   <symbol id="icon-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M9 18V5l12-2v13"/>
-    <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
   </symbol>
   <symbol id="icon-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="23 7 16 12 23 17 23 7"/>
-    <rect x="1" y="5" width="15" height="14" rx="2"/>
+    <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
   </symbol>
   <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-    <polyline points="7 10 12 15 17 10"/>
-    <line x1="12" y1="15" x2="12" y2="3"/>
+    <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
   </symbol>
   <symbol id="icon-zoom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -480,33 +557,40 @@ video {
     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
     <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
   </symbol>
+  <symbol id="icon-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+    <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+  </symbol>
 </svg>
 
 <!-- NAVBAR -->
 <nav class="navbar" role="navigation" aria-label="Navegação principal">
   <div class="navbar-inner">
     <span class="nav-logo">Leitoa <span>V3.0</span></span>
-    <div class="nav-tabs" role="tablist">
-      <button class="nav-tab" id="tab-receita" role="tab" aria-selected="false" aria-controls="section-receita" onclick="showSection('receita')">
+    <div class="nav-tabs" role="tablist" id="navTabs">
+      <button class="nav-tab is-active" id="tab-receita" role="tab" aria-selected="true" aria-controls="section-receita">
         <svg><use href="#icon-recipe"/></svg>Receita
       </button>
-      <button class="nav-tab" id="tab-guia" role="tab" aria-selected="false" aria-controls="section-guia" onclick="showSection('guia')">
+      <button class="nav-tab" id="tab-guia" role="tab" aria-selected="false" aria-controls="section-guia">
         <svg><use href="#icon-guide"/></svg>Guia de Bolso
       </button>
-      <button class="nav-tab" id="tab-pdf" role="tab" aria-selected="false" aria-controls="section-pdf" onclick="showSection('pdf')">
-        <svg><use href="#icon-pdf"/></svg>PDF
+      <button class="nav-tab" id="tab-video" role="tab" aria-selected="false" aria-controls="section-video">
+        <svg><use href="#icon-video"/></svg>Vídeo
       </button>
-      <button class="nav-tab" id="tab-slides" role="tab" aria-selected="false" aria-controls="section-slides" onclick="showSection('slides')">
-        <svg><use href="#icon-slides"/></svg>Slides
-      </button>
-      <button class="nav-tab" id="tab-mapa" role="tab" aria-selected="false" aria-controls="section-mapa" onclick="showSection('mapa')">
-        <svg><use href="#icon-mindmap"/></svg>Mapa Mental
-      </button>
-      <button class="nav-tab" id="tab-audio" role="tab" aria-selected="false" aria-controls="section-audio" onclick="showSection('audio')">
+      <button class="nav-tab" id="tab-audio" role="tab" aria-selected="false" aria-controls="section-audio">
         <svg><use href="#icon-audio"/></svg>Áudio
       </button>
-      <button class="nav-tab" id="tab-video" role="tab" aria-selected="false" aria-controls="section-video" onclick="showSection('video')">
-        <svg><use href="#icon-video"/></svg>Vídeo
+      <button class="nav-tab" id="tab-mapa" role="tab" aria-selected="false" aria-controls="section-mapa">
+        <svg><use href="#icon-mindmap"/></svg>Mapa Mental
+      </button>
+      <button class="nav-tab" id="tab-pdf" role="tab" aria-selected="false" aria-controls="section-pdf">
+        <svg><use href="#icon-pdf"/></svg>PDF
+      </button>
+      <button class="nav-tab" id="tab-slides" role="tab" aria-selected="false" aria-controls="section-slides">
+        <svg><use href="#icon-slides"/></svg>Slides
+      </button>
+      <button class="nav-tab" id="tab-downloads" role="tab" aria-selected="false" aria-controls="section-downloads">
+        <svg><use href="#icon-download"/></svg>Downloads
       </button>
     </div>
   </div>
@@ -531,21 +615,21 @@ video {
       <span class="badge">🧄 Pele crocante</span>
     </div>
     <div class="hero-actions">
-      <a href="#" class="btn-primary" id="btn-hero-receita" onclick="showSection('receita'); window.scrollTo({top:56,behavior:'smooth'}); return false;">
+      <a href="receita.html" class="btn-primary">
         <svg class="btn-icon-svg"><use href="#icon-flame"/></svg>
-        Ver Receita
+        Abrir Receita
       </a>
+      <button class="btn-ghost" onclick="showSection('guia')">
+        <svg class="btn-icon-svg"><use href="#icon-guide"/></svg>
+        Guia de Bolso
+      </button>
+      <button class="btn-ghost" onclick="showSection('video')">
+        <svg class="btn-icon-svg"><use href="#icon-video"/></svg>
+        Assistir Vídeo
+      </button>
       <a href="assets/leitoa-assada-v3.pdf" download class="btn-ghost">
         <svg class="btn-icon-svg"><use href="#icon-download"/></svg>
         Baixar PDF
-      </a>
-      <a href="#" class="btn-ghost" onclick="showSection('guia'); window.scrollTo({top:56,behavior:'smooth'}); return false;">
-        <svg class="btn-icon-svg"><use href="#icon-guide"/></svg>
-        Guia de Bolso
-      </a>
-      <a href="#" class="btn-ghost" onclick="showSection('video'); window.scrollTo({top:56,behavior:'smooth'}); return false;">
-        <svg class="btn-icon-svg"><use href="#icon-video"/></svg>
-        Assistir Vídeo
       </a>
     </div>
   </div>
@@ -558,7 +642,7 @@ video {
 <main class="site-main" id="main-content">
 
   <!-- RECEITA -->
-  <section class="section" id="section-receita" role="tabpanel" aria-labelledby="tab-receita">
+  <section class="section is-active" id="section-receita" role="tabpanel" aria-labelledby="tab-receita">
     <div class="section-header">
       <div class="section-label">Interativa</div>
       <h2>Receita Interativa</h2>
@@ -573,7 +657,7 @@ video {
       <div class="recipe-cta-card">
         <div class="recipe-cta-icon">⏱️</div>
         <div class="recipe-cta-title">Cronômetros por etapa</div>
-        <div class="recipe-cta-desc">Timers que continuam mesmo se fechar o app.</div>
+        <div class="recipe-cta-desc">Timers que continuam mesmo fechando o app.</div>
       </div>
       <div class="recipe-cta-card">
         <div class="recipe-cta-icon">✅</div>
@@ -581,9 +665,9 @@ video {
         <div class="recipe-cta-desc">Marque etapas e ingredientes. Fica salvo no dispositivo.</div>
       </div>
       <div class="recipe-cta-card">
-        <div class="recipe-cta-icon">🌡️</div>
-        <div class="recipe-cta-title">Critérios técnicos</div>
-        <div class="recipe-cta-desc">Temperaturas, pontos e notas de segurança alimentar.</div>
+        <div class="recipe-cta-icon">☀️</div>
+        <div class="recipe-cta-title">Modo cozinha</div>
+        <div class="recipe-cta-desc">Fundo claro para melhor leitura sob luz forte.</div>
       </div>
     </div>
     <a href="receita.html" class="btn-cta-full" id="btn-open-recipe">
@@ -596,111 +680,95 @@ video {
     <div class="section-header">
       <div class="section-label">Referência rápida</div>
       <h2>Guia de Bolso</h2>
-      <p>Resumo visual para consultar na cozinha sem precisar de internet.</p>
+      <p>Consulte os passos essenciais sem precisar abrir a receita completa.</p>
     </div>
-    <div class="image-wrap" id="guia-wrap" onclick="openLightbox('assets/guia-de-bolso.png','Guia de Bolso — Leitoa Assada V3.0')" role="button" aria-label="Abrir guia de bolso em tela cheia" tabindex="0">
-      <img src="assets/guia-de-bolso.png" alt="Guia de bolso da leitoa assada V3.0 — resumo visual da receita" loading="lazy">
+
+    <!-- HTML version -->
+    <div class="guia-html-label">Leitura rápida</div>
+    <div class="guia-steps">
+      <div class="guia-step">
+        <div class="guia-num">1</div>
+        <div class="guia-body">
+          <h3>Tempero e marinada</h3>
+          <p>Faça uma pasta com <strong>alho, louro, pimenta em grão, sal grosso e vinho branco seco</strong>. Passe o tempero principalmente na carne e nos cortes mais grossos. Na pele, evite excesso de líquido.</p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">2</div>
+        <div class="guia-body">
+          <h3>Pele crocante começa antes do forno</h3>
+          <p>Faça cortes rasos em losango, pegando só pele e gordura. Seque muito bem. <strong>Leve à geladeira com a pele para cima, destampada, por 12 a 24 horas.</strong></p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">3</div>
+        <div class="guia-body">
+          <h3>Antes de assar</h3>
+          <p>Retire da geladeira enquanto o forno preaquece. <strong>Seque novamente a pele.</strong> Preaqueça o forno a <strong>180°C</strong> por cerca de 30 minutos.</p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">4</div>
+        <div class="guia-body">
+          <h3>Primeira fase — carne macia</h3>
+          <p>Coloque sobre uma grelha dentro de assadeira funda, com a pele para cima. Asse a <strong>180°C por cerca de 2 horas</strong> para uma peça de 4 kg. <strong>Regue a carne e as laterais a cada 30–40 minutos. Não molhe a pele.</strong></p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">5</div>
+        <div class="guia-body">
+          <h3>Preparar a pele para pururucar</h3>
+          <p>Retire do forno, seque novamente a pele e espalhe uma <strong>camada generosa e uniforme de sal grosso</strong>.</p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">6</div>
+        <div class="guia-body">
+          <h3>Segunda fase — crocância final</h3>
+          <p>Aumente para <strong>230–250°C</strong> ou use o grill. Asse por <strong>20 a 30 minutos</strong>, observando de perto, até dourar, criar bolhas e ficar crocante.</p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">7</div>
+        <div class="guia-body">
+          <h3>Ponto e segurança</h3>
+          <p>Mínimo seguro: <strong>63°C com 3 minutos de descanso</strong>. Alvo sugerido para esta meia banda: <strong>68–72°C na parte mais grossa</strong>, sem encostar no osso.</p>
+        </div>
+      </div>
+      <div class="guia-step">
+        <div class="guia-num">8</div>
+        <div class="guia-body">
+          <h3>Descanso</h3>
+          <p>Deixe descansar por <strong>15 minutos, sem cobrir</strong>, para não amolecer a pele.</p>
+        </div>
+      </div>
+    </div>
+    <div class="guia-final">
+      <p>🥩 <strong>Pele crocante</strong> = pele marcada + seca + sal uniforme</p>
+      <p>🍖 <strong>Carne suculenta</strong> = fogo moderado + grelha + regar só a carne</p>
+      <p>🌡️ O relógio orienta; o termômetro decide.</p>
+    </div>
+
+    <!-- Image version -->
+    <div class="guia-html-label" style="margin-top:36px;">Imagem original</div>
+    <div class="image-wrap" id="guia-img-wrap" role="button" aria-label="Ampliar guia de bolso" tabindex="0"
+      onclick="openLightbox('assets/guia-de-bolso.png','Guia de Bolso — Leitoa Assada V3.0','guia-de-bolso.png')">
+      <picture>
+        <source srcset="assets/guia-de-bolso.webp" type="image/webp">
+        <img src="assets/guia-de-bolso.png" alt="Guia de bolso da leitoa assada V3.0 — resumo visual da receita" loading="lazy">
+      </picture>
       <div class="image-overlay">
-        <span style="color:#fff;font-weight:600;font-size:14px;">🔍 Clique para ampliar</span>
+        <span style="color:#fff;font-weight:600;font-size:14px;">🔍 Toque para ampliar</span>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn-action primary" onclick="openLightbox('assets/guia-de-bolso.png','Guia de Bolso — Leitoa Assada V3.0')" id="btn-guia-fullscreen">
+      <button class="btn-action primary" id="btn-guia-fullscreen"
+        onclick="openLightbox('assets/guia-de-bolso.png','Guia de Bolso — Leitoa Assada V3.0','guia-de-bolso.png')">
         <svg><use href="#icon-zoom"/></svg>Abrir em tela cheia
       </button>
       <a href="assets/guia-de-bolso.png" download="guia-de-bolso-leitoa-v3.png" class="btn-action" id="btn-guia-download">
-        <svg><use href="#icon-download"/></svg>Baixar guia de bolso
+        <svg><use href="#icon-download"/></svg>Baixar imagem
       </a>
-    </div>
-  </section>
-
-  <!-- PDF -->
-  <section class="section" id="section-pdf" role="tabpanel" aria-labelledby="tab-pdf">
-    <div class="section-header">
-      <div class="section-label">Download</div>
-      <h2>PDF da Receita</h2>
-      <p>Versão completa em PDF para imprimir ou salvar no celular.</p>
-    </div>
-    <div class="pdf-card">
-      <div class="pdf-icon">📄</div>
-      <h3>Leitoa Assada V3.0</h3>
-      <p>Receita completa em formato PDF — ingredientes, etapas, critérios técnicos e notas. Ideal para imprimir e deixar na cozinha.</p>
-      <a href="assets/leitoa-assada-v3.pdf" download="leitoa-assada-v3.pdf" class="btn-download-big" id="btn-pdf-download">
-        <svg><use href="#icon-download"/></svg>Baixar PDF da receita
-      </a>
-    </div>
-  </section>
-
-  <!-- SLIDES -->
-  <section class="section" id="section-slides" role="tabpanel" aria-labelledby="tab-slides">
-    <div class="section-header">
-      <div class="section-label">Apresentação</div>
-      <h2>Blueprint — Slides</h2>
-      <p>Apresentação completa em PowerPoint com todo o racional da receita V3.0.</p>
-    </div>
-    <div class="slides-card">
-      <div class="slides-icon">📊</div>
-      <h3>Leitoa Assada V3.0 Blueprint</h3>
-      <p>Apresentação em formato PPTX com o blueprint completo da receita. Abra no PowerPoint, Google Slides, Keynote ou LibreOffice.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
-        <a href="assets/blueprint.pptx" download="leitoa-assada-v3-blueprint.pptx" class="btn-download-big" id="btn-slides-download">
-          <svg><use href="#icon-download"/></svg>Baixar apresentação (PPTX)
-        </a>
-      </div>
-      <p style="font-size:12px;color:var(--cream-dim);margin-top:20px;opacity:0.7;">
-        💡 Dica: para abrir no celular, use o Google Slides — abra o app, clique em + e selecione o arquivo baixado.
-      </p>
-    </div>
-  </section>
-
-  <!-- MAPA MENTAL -->
-  <section class="section" id="section-mapa" role="tabpanel" aria-labelledby="tab-mapa">
-    <div class="section-header">
-      <div class="section-label">Visão geral</div>
-      <h2>Mapa Mental</h2>
-      <p>Mapa mental com a estrutura completa da receita — todas as etapas e critérios em um único diagrama.</p>
-    </div>
-    <div class="image-wrap" id="mapa-wrap" onclick="openLightbox('assets/mapa-mental.png','Mapa Mental — Leitoa Assada V3.0')" role="button" aria-label="Abrir mapa mental em tela cheia" tabindex="0">
-      <img src="assets/mapa-mental.png" alt="Mapa mental da leitoa assada V3.0 com todas as etapas e critérios" loading="lazy">
-      <div class="image-overlay">
-        <span style="color:#fff;font-weight:600;font-size:14px;">🔍 Clique para ampliar</span>
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn-action primary" onclick="openLightbox('assets/mapa-mental.png','Mapa Mental — Leitoa Assada V3.0')" id="btn-mapa-fullscreen">
-        <svg><use href="#icon-zoom"/></svg>Abrir em tela cheia
-      </button>
-      <a href="assets/mapa-mental.png" download="mapa-mental-leitoa-v3.png" class="btn-action" id="btn-mapa-download">
-        <svg><use href="#icon-download"/></svg>Baixar mapa mental
-      </a>
-    </div>
-  </section>
-
-  <!-- ÁUDIO -->
-  <section class="section" id="section-audio" role="tabpanel" aria-labelledby="tab-audio">
-    <div class="section-header">
-      <div class="section-label">Ouça</div>
-      <h2>O Segredo da Pururuca na Geladeira</h2>
-      <p>Explicação em áudio sobre a técnica essencial para conseguir a pele crocante perfeita.</p>
-    </div>
-    <div class="card">
-      <p style="font-size:15px;color:var(--cream-dim);margin-bottom:20px;line-height:1.7;">
-        🎙️ <strong style="color:var(--cream);">Por que a geladeira faz toda a diferença?</strong><br>
-        O ar seco da geladeira retira a última umidade da pele — o detalhe que separa a pururuca estufada da pele murcha e dura.
-      </p>
-      <div class="audio-player-wrap">
-        <audio controls preload="metadata" id="audio-player">
-          <source src="assets/segredo-pururuca.m4a" type="audio/mp4">
-          <source src="assets/segredo-pururuca.m4a" type="audio/x-m4a">
-          Seu navegador não suporta o player de áudio. 
-          <a href="assets/segredo-pururuca.m4a" download>Baixe o áudio aqui</a>.
-        </audio>
-      </div>
-      <div class="btn-row">
-        <a href="assets/segredo-pururuca.m4a" download="o-segredo-da-pururuca-na-geladeira.m4a" class="btn-action primary" id="btn-audio-download">
-          <svg><use href="#icon-download"/></svg>Baixar áudio
-        </a>
-      </div>
     </div>
   </section>
 
@@ -717,17 +785,198 @@ video {
         controls
         playsinline
         preload="metadata"
-        aria-label="Vídeo da receita de leitoa assada V3.0"
+        poster="assets/og-image.jpg"
+        aria-label="Vídeo da receita de leitoa assada V3.0 — do tempero à pururuca"
       >
-        <source src="assets/leitoa-assada-v3.mp4" type="video/mp4">
+        <source src="assets/leitoa-assada-v3-web.mp4" type="video/mp4">
         Seu navegador não suporta o player de vídeo.
-        <a href="assets/leitoa-assada-v3.mp4" download>Baixe o vídeo aqui</a>.
+        <a href="assets/leitoa-assada-v3-web.mp4" download>Baixe o vídeo aqui</a>.
       </video>
     </div>
     <div class="btn-row" style="margin-top:16px;">
-      <a href="assets/leitoa-assada-v3.mp4" download="leitoa-assada-v3.mp4" class="btn-action primary" id="btn-video-download">
+      <a href="assets/leitoa-assada-v3-web.mp4" download="leitoa-assada-v3.mp4" class="btn-action primary" id="btn-video-download">
         <svg><use href="#icon-download"/></svg>Baixar vídeo
       </a>
+    </div>
+  </section>
+
+  <!-- ÁUDIO -->
+  <section class="section" id="section-audio" role="tabpanel" aria-labelledby="tab-audio">
+    <div class="section-header">
+      <div class="section-label">Ouça</div>
+      <h2>O Segredo da Pururuca na Geladeira</h2>
+      <p>Explicação em áudio sobre a técnica essencial para conseguir a pele crocante perfeita.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:16px;color:var(--cream-dim);margin-bottom:20px;line-height:1.7;">
+        🎙️ <strong style="color:var(--cream);">Por que a geladeira faz toda a diferença?</strong><br>
+        O ar seco da geladeira retira a última umidade da pele — o detalhe que separa a pururuca estufada da pele murcha e dura.
+      </p>
+      <div class="audio-player-wrap">
+        <audio controls preload="metadata" id="audio-player" aria-label="Áudio: O Segredo da Pururuca na Geladeira">
+          <source src="assets/segredo-pururuca-96k.m4a" type="audio/mp4">
+          <source src="assets/segredo-pururuca.m4a" type="audio/x-m4a">
+          Seu navegador não suporta o player de áudio.
+          <a href="assets/segredo-pururuca-96k.m4a" download>Baixe o áudio aqui</a>.
+        </audio>
+      </div>
+      <div class="btn-row">
+        <a href="assets/segredo-pururuca-96k.m4a" download="o-segredo-da-pururuca-na-geladeira.m4a" class="btn-action primary" id="btn-audio-download">
+          <svg><use href="#icon-download"/></svg>Baixar áudio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA MENTAL -->
+  <section class="section" id="section-mapa" role="tabpanel" aria-labelledby="tab-mapa">
+    <div class="section-header">
+      <div class="section-label">Visão geral</div>
+      <h2>Mapa Mental</h2>
+      <p>Estrutura completa da receita — todas as etapas e critérios em um único diagrama.</p>
+    </div>
+    <div class="image-wrap" id="mapa-img-wrap" role="button" aria-label="Ampliar mapa mental" tabindex="0"
+      onclick="openLightbox('assets/mapa-mental.png','Mapa Mental — Leitoa Assada V3.0','mapa-mental.png')">
+      <picture>
+        <source srcset="assets/mapa-mental.webp" type="image/webp">
+        <img src="assets/mapa-mental.png" alt="Mapa mental da leitoa assada V3.0 com todas as etapas e critérios" loading="lazy">
+      </picture>
+      <div class="image-overlay">
+        <span style="color:#fff;font-weight:600;font-size:14px;">🔍 Toque para ampliar</span>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-action primary" id="btn-mapa-fullscreen"
+        onclick="openLightbox('assets/mapa-mental.png','Mapa Mental — Leitoa Assada V3.0','mapa-mental.png')">
+        <svg><use href="#icon-zoom"/></svg>Abrir em tela cheia
+      </button>
+      <a href="assets/mapa-mental.png" target="_blank" rel="noopener" class="btn-action" id="btn-mapa-newtab">
+        <svg><use href="#icon-external"/></svg>Abrir em nova aba
+      </a>
+      <a href="assets/mapa-mental.png" download="mapa-mental-leitoa-v3.png" class="btn-action" id="btn-mapa-download">
+        <svg><use href="#icon-download"/></svg>Baixar
+      </a>
+    </div>
+  </section>
+
+  <!-- PDF -->
+  <section class="section" id="section-pdf" role="tabpanel" aria-labelledby="tab-pdf">
+    <div class="section-header">
+      <div class="section-label">Download</div>
+      <h2>PDF da Receita</h2>
+      <p>Versão completa em PDF para imprimir ou salvar no celular.</p>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">📄</div>
+      <h3>Leitoa Assada V3.0</h3>
+      <p>Receita completa — ingredientes, etapas, critérios técnicos e notas. Ideal para imprimir e deixar na cozinha.</p>
+      <a href="assets/leitoa-assada-v3.pdf" download="leitoa-assada-v3.pdf" class="btn-download-big" id="btn-pdf-download">
+        <svg><use href="#icon-download"/></svg>Baixar PDF da receita
+      </a>
+    </div>
+  </section>
+
+  <!-- SLIDES -->
+  <section class="section" id="section-slides" role="tabpanel" aria-labelledby="tab-slides">
+    <div class="section-header">
+      <div class="section-label">Apresentação</div>
+      <h2>Blueprint — Slides</h2>
+      <p>Apresentação completa em PowerPoint com todo o racional da receita V3.0.</p>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">📊</div>
+      <h3>Leitoa Assada V3.0 Blueprint</h3>
+      <p>Apresentação em formato PPTX com o blueprint completo da receita. Abra no PowerPoint, Google Slides, Keynote ou LibreOffice.</p>
+      <a href="assets/blueprint.pptx" download="leitoa-assada-v3-blueprint.pptx" class="btn-download-big" id="btn-slides-download">
+        <svg><use href="#icon-download"/></svg>Baixar apresentação (PPTX)
+      </a>
+      <p class="hint">💡 No celular: abra o Google Slides, toque em + e selecione o arquivo baixado.</p>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section class="section" id="section-downloads" role="tabpanel" aria-labelledby="tab-downloads">
+    <div class="section-header">
+      <div class="section-label">Todos os arquivos</div>
+      <h2>Downloads</h2>
+      <p>Todos os materiais da receita em um só lugar.</p>
+    </div>
+    <div class="downloads-grid">
+      <div class="dl-mini-card">
+        <div class="dl-mini-icon">📄</div>
+        <div class="dl-mini-name">Receita PDF</div>
+        <div class="dl-mini-type">PDF · 39 KB</div>
+        <div class="dl-mini-btns">
+          <a href="assets/leitoa-assada-v3.pdf" download class="btn-dl-sm fill">
+            <svg><use href="#icon-download"/></svg>Baixar
+          </a>
+          <a href="assets/leitoa-assada-v3.pdf" target="_blank" class="btn-dl-sm ghost">
+            <svg><use href="#icon-external"/></svg>Abrir
+          </a>
+        </div>
+      </div>
+      <div class="dl-mini-card">
+        <div class="dl-mini-icon">📊</div>
+        <div class="dl-mini-name">Blueprint Slides</div>
+        <div class="dl-mini-type">PPTX · 13 MB</div>
+        <div class="dl-mini-btns">
+          <a href="assets/blueprint.pptx" download class="btn-dl-sm fill">
+            <svg><use href="#icon-download"/></svg>Baixar
+          </a>
+        </div>
+      </div>
+      <div class="dl-mini-card">
+        <div class="dl-mini-icon">🗺️</div>
+        <div class="dl-mini-name">Guia de Bolso</div>
+        <div class="dl-mini-type">PNG · 2 MB</div>
+        <div class="dl-mini-btns">
+          <a href="assets/guia-de-bolso.png" download class="btn-dl-sm fill">
+            <svg><use href="#icon-download"/></svg>Baixar
+          </a>
+          <button class="btn-dl-sm ghost" onclick="openLightbox('assets/guia-de-bolso.png','Guia de Bolso','guia-de-bolso.png')">
+            <svg><use href="#icon-zoom"/></svg>Ver
+          </button>
+        </div>
+      </div>
+      <div class="dl-mini-card">
+        <div class="dl-mini-icon">🧠</div>
+        <div class="dl-mini-name">Mapa Mental</div>
+        <div class="dl-mini-type">PNG · 5,8 MB</div>
+        <div class="dl-mini-btns">
+          <a href="assets/mapa-mental.png" download class="btn-dl-sm fill">
+            <svg><use href="#icon-download"/></svg>Baixar
+          </a>
+          <button class="btn-dl-sm ghost" onclick="openLightbox('assets/mapa-mental.png','Mapa Mental','mapa-mental.png')">
+            <svg><use href="#icon-zoom"/></svg>Ver
+          </button>
+        </div>
+      </div>
+      <div class="dl-mini-card">
+        <div class="dl-mini-icon">🎙️</div>
+        <div class="dl-mini-name">Áudio — Pururuca</div>
+        <div class="dl-mini-type">M4A · 14 MB</div>
+        <div class="dl-mini-btns">
+          <a href="assets/segredo-pururuca-96k.m4a" download class="btn-dl-sm fill">
+            <svg><use href="#icon-download"/></svg>Baixar
+          </a>
+          <button class="btn-dl-sm ghost" onclick="showSection('audio')">
+            ▶ Ouvir
+          </button>
+        </div>
+      </div>
+      <div class="dl-mini-card">
+        <div class="dl-mini-icon">🎬</div>
+        <div class="dl-mini-name">Vídeo da Receita</div>
+        <div class="dl-mini-type">MP4 · 24 MB</div>
+        <div class="dl-mini-btns">
+          <a href="assets/leitoa-assada-v3-web.mp4" download class="btn-dl-sm fill">
+            <svg><use href="#icon-download"/></svg>Baixar
+          </a>
+          <button class="btn-dl-sm ghost" onclick="showSection('video')">
+            ▶ Assistir
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -739,66 +988,137 @@ video {
   forno doméstico · inspirada na Bairrada
 </footer>
 
+<!-- MOBILE DOCK -->
+<nav class="mobile-dock" aria-label="Navegação rápida">
+  <div class="mobile-dock-inner">
+    <button class="dock-btn is-active" id="dock-receita" onclick="showSection('receita')" aria-label="Receita">
+      <svg><use href="#icon-recipe"/></svg>Receita
+    </button>
+    <button class="dock-btn" id="dock-guia" onclick="showSection('guia')" aria-label="Guia de Bolso">
+      <svg><use href="#icon-guide"/></svg>Guia
+    </button>
+    <button class="dock-btn" id="dock-video" onclick="showSection('video')" aria-label="Vídeo">
+      <svg><use href="#icon-video"/></svg>Vídeo
+    </button>
+    <button class="dock-btn" id="dock-downloads" onclick="showSection('downloads')" aria-label="Downloads">
+      <svg><use href="#icon-download"/></svg>Downloads
+    </button>
+  </div>
+</nav>
+
 <script>
-// ===== NAVIGATION =====
-function showSection(id) {
-  // Hide all sections
+// ===== VALID SECTIONS =====
+var VALID = ['receita','guia','video','audio','mapa','pdf','slides','downloads'];
+
+// ===== SHOW SECTION =====
+var _lastOpener = null;
+
+function showSection(id, opts) {
+  opts = opts || {};
+  var doScroll = opts.scroll !== false;
+
+  if (VALID.indexOf(id) === -1) return;
+
   document.querySelectorAll('.section').forEach(function(s) {
     s.classList.remove('is-active');
   });
-  // Deactivate all tabs
   document.querySelectorAll('.nav-tab').forEach(function(t) {
     t.classList.remove('is-active');
     t.setAttribute('aria-selected', 'false');
   });
-  // Show target section
+  document.querySelectorAll('.dock-btn').forEach(function(b) {
+    b.classList.remove('is-active');
+  });
+
   var section = document.getElementById('section-' + id);
-  var tab = document.getElementById('tab-' + id);
-  if (section) {
-    section.classList.add('is-active');
-    // Scroll to top of section after nav
-    setTimeout(function() {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 60);
-  }
+  var tab     = document.getElementById('tab-' + id);
+  var dock    = document.getElementById('dock-' + id);
+
+  if (section) section.classList.add('is-active');
   if (tab) {
     tab.classList.add('is-active');
     tab.setAttribute('aria-selected', 'true');
-    // Scroll tab into view on mobile
-    tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    tab.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
   }
-  // Update URL hash without jumping
+  if (dock) dock.classList.add('is-active');
+
+  if (doScroll) {
+    var main = document.getElementById('main-content');
+    if (main) {
+      window.scrollTo({ top: main.offsetTop - 52, behavior: 'smooth' });
+    }
+  }
+
   if (history.pushState) {
-    history.pushState(null, null, '#' + id);
+    history.pushState({ section: id }, '', '#' + id);
   }
 }
+
+// ===== KEYBOARD NAV ON TABS =====
+document.getElementById('navTabs').addEventListener('keydown', function(e) {
+  var tabs = Array.from(document.querySelectorAll('.nav-tab'));
+  var idx = tabs.indexOf(document.activeElement);
+  if (idx === -1) return;
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    tabs[(idx + 1) % tabs.length].focus();
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    tabs[(idx - 1 + tabs.length) % tabs.length].focus();
+  } else if (e.key === 'Home') {
+    e.preventDefault(); tabs[0].focus();
+  } else if (e.key === 'End') {
+    e.preventDefault(); tabs[tabs.length-1].focus();
+  } else if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    var sid = document.activeElement.id.replace('tab-','');
+    showSection(sid);
+  }
+});
+
+// Click on tabs
+document.querySelectorAll('.nav-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    var id = tab.id.replace('tab-', '');
+    showSection(id);
+  });
+});
 
 // Handle keyboard on image cards
 document.querySelectorAll('.image-wrap[tabindex]').forEach(function(el) {
   el.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      el.click();
-    }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
   });
 });
 
-// Load section from hash
+// Load section from hash (no scroll on initial load)
 (function() {
   var hash = window.location.hash.replace('#', '');
-  var validSections = ['receita','guia','pdf','slides','mapa','audio','video'];
-  if (hash && validSections.indexOf(hash) !== -1) {
-    showSection(hash);
+  if (hash && VALID.indexOf(hash) !== -1) {
+    showSection(hash, { scroll: false });
   }
+  // else receita is already active via HTML class
 })();
 
-// ===== LIGHTBOX =====
-var lightbox = document.getElementById('lightbox');
-var lightboxImg = document.getElementById('lightboxImg');
+// popstate (browser back/forward)
+window.addEventListener('popstate', function(e) {
+  var id = (e.state && e.state.section) || window.location.hash.replace('#','') || 'receita';
+  if (VALID.indexOf(id) !== -1) showSection(id, { scroll: false });
+});
 
-function openLightbox(src, alt) {
+// ===== LIGHTBOX =====
+var lightbox     = document.getElementById('lightbox');
+var lightboxImg  = document.getElementById('lightboxImg');
+var lightboxOpen = document.getElementById('lightboxOpen');
+var lightboxDl   = document.getElementById('lightboxDownload');
+
+function openLightbox(src, alt, filename) {
+  _lastOpener = document.activeElement;
   lightboxImg.src = src;
   lightboxImg.alt = alt || '';
+  lightboxOpen.href = src;
+  lightboxDl.href = src;
+  lightboxDl.download = filename || src.split('/').pop();
   lightbox.classList.add('is-open');
   document.body.style.overflow = 'hidden';
   document.getElementById('lightboxClose').focus();
@@ -808,6 +1128,10 @@ function closeLightbox() {
   lightbox.classList.remove('is-open');
   document.body.style.overflow = '';
   lightboxImg.src = '';
+  if (_lastOpener && typeof _lastOpener.focus === 'function') {
+    _lastOpener.focus();
+  }
+  _lastOpener = null;
 }
 
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
@@ -815,7 +1139,7 @@ lightbox.addEventListener('click', function(e) {
   if (e.target === lightbox) closeLightbox();
 });
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
 });
 </script>
 

@@ -1,12 +1,32 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Leitoa Assada em Meia Banda — V3.0 forno doméstico</title>
+<title>Receita Interativa — Leitoa Assada V3.0</title>
+<meta name="description" content="Receita interativa de leitoa assada em meia banda, forno doméstico, inspirada na Bairrada. Ingredientes escaláveis, cronômetros por etapa e progresso salvo.">
+
+<link rel="canonical" href="https://cidadaobrasil.github.io/leitoa-assada/receita.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cidadaobrasil.github.io/leitoa-assada/receita.html">
+<meta property="og:title" content="Receita Interativa — Leitoa Assada V3.0">
+<meta property="og:description" content="Receita interativa de leitoa assada em meia banda, forno doméstico, inspirada na Bairrada. Ingredientes escaláveis, cronômetros por etapa e progresso salvo.">
+<meta property="og:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Receita Interativa — Leitoa Assada V3.0">
+<meta name="twitter:description" content="Receita interativa de leitoa assada em meia banda, forno doméstico, inspirada na Bairrada.">
+<meta name="twitter:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.jpg">
+<meta name="theme-color" content="#19100b">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --char: #19100b;
@@ -21,10 +41,24 @@
     --sage: #93a37f;
     --sage-text: #aebd9b;
     --line: rgba(241,230,210,0.12);
+    --line-strong: rgba(241,230,210,0.22);
     --font-display: 'Fraunces', serif;
     --font-body: 'Work Sans', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
     --radius: 18px;
+    /* cooking mode overrides via class */
+    --bg: var(--char);
+    --surface: var(--ember);
+    --text: var(--cream);
+    --text-dim: var(--cream-dim);
+  }
+  body.cook-mode {
+    --bg: #f8f2e8;
+    --surface: #fff8ef;
+    --text: #1a0e06;
+    --text-dim: #5a3e28;
+    --line: rgba(90,62,40,0.15);
+    --line-strong: rgba(90,62,40,0.28);
   }
 
   *{ box-sizing:border-box; }
@@ -32,90 +66,147 @@
 
   body{
     margin:0;
-    background:
-      radial-gradient(60% 45% at 50% -5%, rgba(217,165,68,0.16), transparent 60%),
-      var(--char);
-    color: var(--cream);
+    background: var(--bg);
+    color: var(--text);
     font-family: var(--font-body);
-    line-height:1.5;
+    font-size: 16px;
+    line-height:1.6;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
-  main{ max-width: 560px; margin: 0 auto; padding-bottom: 64px; }
+  main{ max-width: 560px; margin: 0 auto; padding: 0 0 80px; }
 
-  h1,h2,h3{ font-family: var(--font-display); font-weight:600; margin:0; color: var(--cream); }
+  h1,h2,h3{ font-family: var(--font-display); font-weight:600; margin:0; color: var(--text); }
 
   a{ color: var(--gold-soft); }
 
   .visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
+  /* ---------- page header ---------- */
+  .page-header{
+    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 16px;
+    height: 52px;
+    background: rgba(25,16,11,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  body.cook-mode .page-header{
+    background: rgba(248,242,232,0.94);
+    border-bottom-color: rgba(90,62,40,0.2);
+  }
+  .page-header .back-btn{
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--gold-soft); font-size: 13px; font-weight: 600;
+    text-decoration: none; padding: 8px 14px; border-radius: 100px;
+    border: 1px solid rgba(217,165,68,0.3);
+    background: rgba(217,165,68,0.08);
+    transition: background 0.2s;
+    min-height: 40px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  body.cook-mode .page-header .back-btn{
+    color: var(--wine); border-color: rgba(124,38,50,0.3); background: rgba(124,38,50,0.06);
+  }
+  .page-header .back-btn:hover{ background: rgba(217,165,68,0.18); }
+  .page-header .hdr-title{
+    font-family: var(--font-display); font-size: 14px; font-weight:600;
+    color: var(--gold-soft); flex: 1; text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  body.cook-mode .page-header .hdr-title{ color: var(--wine); }
+  .cook-toggle{
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600; color: var(--cream-dim);
+    background: rgba(147,163,127,0.12); border: 1px solid rgba(147,163,127,0.25);
+    border-radius: 100px; padding: 6px 11px; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0;
+    min-height: 36px;
+    transition: all 0.2s;
+  }
+  body.cook-mode .cook-toggle{
+    background: rgba(124,38,50,0.1); border-color: rgba(124,38,50,0.3);
+    color: var(--wine);
+  }
+  .cook-toggle:hover{ opacity: 0.8; }
+
   /* ---------- progress rail ---------- */
   .progress-rail{
-    position: fixed; top:0; left:0; right:0; height:3px;
+    position: fixed; top: 52px; left:0; right:0; height:3px;
     background: rgba(241,230,210,0.08); z-index: 60;
   }
+  body.cook-mode .progress-rail{ background: rgba(90,62,40,0.12); }
   .progress-fill{
     height:100%; width:0%;
     background: linear-gradient(90deg, var(--gold), var(--wine-soft));
     transition: width .5s cubic-bezier(.4,0,.2,1);
   }
 
-  /* ---------- sticky bar ---------- */
+  /* ---------- sticky bar (phase indicator) ---------- */
   .sticky-bar{
-    position: fixed; top:3px; left:0; right:0; z-index: 55;
+    position: fixed; top: 55px; left:0; right:0; z-index: 55;
     display:flex; align-items:center; gap:10px;
-    padding: 10px 18px;
+    padding: 8px 18px;
     background: rgba(25,16,11,0.86);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
     transform: translateY(-120%);
     transition: transform .35s ease;
   }
+  body.cook-mode .sticky-bar{ background: rgba(248,242,232,0.92); }
   .sticky-bar.is-visible{ transform: translateY(0); }
   .sticky-bar .sb-icon{ width:18px; height:18px; flex:none; color: var(--gold); }
   .sticky-bar .sb-title{ font-family: var(--font-display); font-size:15px; font-weight:600; flex:none; }
-  .sticky-bar .sb-phase{ margin-left:auto; font-family: var(--font-mono); font-size:12px; color: var(--cream-dim); text-align:right; }
+  .sticky-bar .sb-phase{ margin-left:auto; font-family: var(--font-mono); font-size:12px; color: var(--text-dim); text-align:right; }
 
   /* ---------- hero ---------- */
-  .hero{ padding: 60px 22px 30px; text-align:center; }
+  .hero{ padding: 80px 22px 30px; text-align:center; }
   .eyebrow{
     font-family: var(--font-mono); font-size:11px; letter-spacing:.16em;
     color: var(--sage-text); text-transform:uppercase; margin-bottom:14px;
   }
+  body.cook-mode .eyebrow{ color: var(--sage); }
   .hero h1{ font-size: clamp(38px, 11vw, 52px); line-height:0.98; letter-spacing:-0.01em; }
   .hero .subtitle{
     font-family: var(--font-display); font-style: italic; font-weight:500;
     color: var(--gold-soft); font-size: clamp(17px,4.6vw,20px); margin-top:6px;
   }
+  body.cook-mode .hero .subtitle{ color: var(--wine); }
   .hero .lead{
-    max-width: 40ch; margin: 18px auto 0; color: var(--cream-dim); font-size:15px;
+    max-width: 40ch; margin: 18px auto 0; color: var(--text-dim); font-size:16px;
   }
 
   /* dial */
   .dial-wrap{ margin: 34px auto 6px; width: min(280px, 78vw); }
   .dial svg{ width:100%; height:auto; display:block; }
   .dial-track{ fill:none; stroke: rgba(241,230,210,0.14); stroke-width:10; stroke-linecap:round; }
+  body.cook-mode .dial-track{ stroke: rgba(90,62,40,0.15); }
   .dial-arc{ fill:none; stroke:url(#dialGrad); stroke-width:10; stroke-linecap:round; }
-  .dial-tick{ font-family: var(--font-mono); font-size:9.5px; fill: var(--cream-dim); }
-  .dial-needle{ stroke: var(--cream); stroke-width:3; stroke-linecap:round; transform-origin:110px 110px; transition: transform .9s cubic-bezier(.4,0,.2,1); }
+  .dial-tick{ font-family: var(--font-mono); font-size:9.5px; fill: var(--text-dim); }
+  .dial-needle{ stroke: var(--text); stroke-width:3; stroke-linecap:round; transform-origin:110px 110px; transition: transform .9s cubic-bezier(.4,0,.2,1); }
   .dial-pivot{ fill: var(--gold); }
   .dial-readout{ margin-top:2px; }
-  .dial-temp{ display:block; font-family: var(--font-mono); font-size: 30px; font-weight:600; color: var(--cream); letter-spacing:-0.01em; }
-  .dial-label{ display:block; font-size:12.5px; color: var(--sage-text); margin-top:2px; }
+  .dial-temp{ display:block; font-family: var(--font-mono); font-size: 30px; font-weight:600; color: var(--text); letter-spacing:-0.01em; }
+  .dial-label{ display:block; font-size:12.5px; color: var(--text-dim); margin-top:2px; }
 
   .badges{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:26px; }
   .badge{
-    font-family: var(--font-mono); font-size:11.5px; color: var(--cream-dim);
-    border:1px solid var(--line); border-radius:100px; padding:6px 12px;
+    font-family: var(--font-mono); font-size:11.5px; color: var(--text-dim);
+    border:1px solid var(--line-strong); border-radius:100px; padding:6px 12px;
   }
 
   .cta{
     display:inline-flex; align-items:center; gap:8px;
-    margin-top:28px; padding: 13px 24px;
+    margin-top:28px; padding: 14px 28px;
     background: var(--gold); color: var(--char);
-    font-family: var(--font-body); font-weight:700; font-size:14.5px;
+    font-family: var(--font-body); font-weight:700; font-size:15px;
     border-radius:100px; text-decoration:none; border:none; cursor:pointer;
     transition: transform .15s ease, background .2s ease;
+    min-height: 52px;
   }
   .cta:active{ transform: scale(.96); }
   .cta svg{ width:16px; height:16px; }
@@ -125,14 +216,15 @@
   .section-head{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
   .section-head svg{ width:20px; height:20px; color: var(--sage); flex:none; }
   .section-head h2{ font-size: clamp(22px,6vw,26px); }
-  .section-sub{ color: var(--cream-dim); font-size:13.5px; margin: -10px 0 22px; }
+  .section-sub{ color: var(--text-dim); font-size:15px; margin: -10px 0 22px; }
 
   /* ---------- servings ---------- */
   .servings-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
   .chip{
-    font-family: var(--font-mono); font-size:13px; color: var(--cream-dim);
-    background: var(--ember); border:1px solid var(--line);
-    border-radius:100px; padding:8px 15px; cursor:pointer;
+    font-family: var(--font-mono); font-size:14px; color: var(--text-dim);
+    background: var(--surface); border:1px solid var(--line-strong);
+    border-radius:100px; padding:10px 18px; cursor:pointer; min-height:48px;
+    display:flex; align-items:center;
     transition: background .2s ease, color .2s ease, border-color .2s ease;
   }
   .chip[aria-pressed="true"]{ background: var(--gold); color: var(--char); border-color: var(--gold); font-weight:600; }
@@ -145,25 +237,26 @@
   }
   .ingredient-row{
     display:flex; align-items:flex-start; gap:12px;
-    padding: 12px 4px; border-bottom:1px solid var(--line);
-    cursor:pointer;
+    padding: 14px 4px; border-bottom:1px solid var(--line);
+    cursor:pointer; min-height:52px;
   }
   .ingredient-row:last-child{ border-bottom:none; }
   .ingredient-row input{ position:absolute; opacity:0; width:1px; height:1px; }
   .check-box{
-    width:21px; height:21px; flex:none; margin-top:1px;
-    border:1.5px solid var(--cream-dim); border-radius:6px;
+    width:24px; height:24px; flex:none; margin-top:2px;
+    border:1.5px solid var(--text-dim); border-radius:6px;
     display:flex; align-items:center; justify-content:center;
     transition: background .15s ease, border-color .15s ease;
   }
-  .check-box svg{ width:13px; height:13px; opacity:0; transition: opacity .15s ease; color: var(--char); }
+  .check-box svg{ width:14px; height:14px; opacity:0; transition: opacity .15s ease; color: var(--char); }
   .ingredient-row input:checked + .check-box{ background: var(--gold); border-color: var(--gold); }
   .ingredient-row input:checked + .check-box svg{ opacity:1; }
   .ingredient-row input:focus-visible + .check-box{ outline: 2px solid var(--gold-soft); outline-offset:2px; }
-  .ing-text{ font-size:14.5px; }
+  .ing-text{ font-size:16px; }
   .ing-amount{ font-family: var(--font-mono); font-weight:600; color: var(--gold-soft); }
-  .ingredient-row.is-checked .ing-text{ color: var(--cream-dim); text-decoration: line-through; text-decoration-color: var(--line); }
-  .ingredient-row.is-checked .ing-amount{ color: var(--cream-dim); }
+  body.cook-mode .ing-amount{ color: var(--wine); }
+  .ingredient-row.is-checked .ing-text{ color: var(--text-dim); text-decoration: line-through; text-decoration-color: var(--line-strong); }
+  .ingredient-row.is-checked .ing-amount{ color: var(--text-dim); }
 
   /* ---------- steps ---------- */
   .steps-rail{ position:relative; }
@@ -176,9 +269,9 @@
   .step:last-child{ margin-bottom:0; }
   .step-dot{
     position:absolute; left:0; top:0; width:32px; height:32px;
-    border-radius:50%; background: var(--ember); border:1.5px solid var(--line);
+    border-radius:50%; background: var(--surface); border:1.5px solid var(--line-strong);
     display:flex; align-items:center; justify-content:center;
-    font-family: var(--font-mono); font-size:13px; font-weight:600; color: var(--cream-dim);
+    font-family: var(--font-mono); font-size:13px; font-weight:600; color: var(--text-dim);
     z-index:2; transition: background .25s ease, border-color .25s ease, color .25s ease;
   }
   .step-dot svg{ width:14px; height:14px; opacity:0; }
@@ -187,69 +280,74 @@
   .step.is-done .step-dot svg{ opacity:1; color: var(--char); }
 
   .step-card{
-    background: var(--ember); border:1px solid var(--line); border-radius: var(--radius);
-    padding: 16px 16px 17px;
+    background: var(--surface); border:1px solid var(--line-strong); border-radius: var(--radius);
+    padding: 18px 18px 19px;
     transition: border-color .25s ease;
   }
   .step.is-done .step-card{ border-color: rgba(147,163,127,0.4); }
-  .step-head{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
-  .step-head h3{ font-size:17px; font-weight:600; }
+  .step-head{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .step-head h3{ font-size:18px; font-weight:600; }
   .phase-tag{
     display:inline-flex; align-items:center; gap:5px;
     font-family: var(--font-mono); font-size:10.5px; letter-spacing:.02em;
-    padding: 3px 9px; border-radius:100px; border:1px solid var(--line); color: var(--cream-dim);
+    padding: 4px 10px; border-radius:100px; border:1px solid var(--line-strong); color: var(--text-dim);
   }
   .phase-tag svg{ width:11px; height:11px; }
   .phase-tag--hot{ color: var(--gold-soft); border-color: rgba(217,165,68,.35); }
   .phase-tag--hotter{ color: var(--wine-soft); border-color: rgba(168,67,79,.4); }
   .phase-tag--cold{ color: var(--sage-text); border-color: rgba(147,163,127,.35); }
 
-  .step-card p{ font-size:14.5px; color: var(--cream); margin: 0 0 4px; }
+  .step-card p{ font-size:16px; color: var(--text); margin: 0 0 4px; line-height:1.65; }
   .step-card p strong{ color: var(--gold-soft); font-weight:600; }
+  body.cook-mode .step-card p strong{ color: var(--wine); }
 
-  .timer{ margin-top:14px; padding-top:14px; border-top:1px dashed var(--line); }
+  .timer{ margin-top:16px; padding-top:16px; border-top:1px dashed var(--line); }
   .timer-display{
-    font-family: var(--font-mono); font-size: 30px; font-weight:600;
-    letter-spacing:.01em; color: var(--cream);
+    font-family: var(--font-mono); font-size: 36px; font-weight:600;
+    letter-spacing:.01em; color: var(--text);
   }
-  .step.is-done .timer-display{ color: var(--sage-text); }
-  .timer-controls{ display:flex; gap:8px; margin-top:10px; }
+  .step.is-done .timer-display{ color: var(--text-dim); }
+  .timer-controls{ display:flex; gap:8px; margin-top:12px; }
   .btn-icon{
-    width:40px; height:40px; border-radius:10px; border:1px solid var(--line);
-    background: var(--ember-2); color: var(--cream); display:flex; align-items:center; justify-content:center;
+    width:48px; height:48px; border-radius:12px; border:1px solid var(--line-strong);
+    background: var(--ember-2); color: var(--text); display:flex; align-items:center; justify-content:center;
     cursor:pointer; transition: background .15s ease, transform .15s ease;
   }
-  .btn-icon svg{ width:16px; height:16px; }
+  body.cook-mode .btn-icon{ background: #f0e8d8; }
+  .btn-icon svg{ width:18px; height:18px; }
   .btn-icon:active{ transform: scale(.93); }
   .btn-icon.is-primary{ background: var(--gold); color: var(--char); border-color: var(--gold); }
-  .timer-hint{ font-size:12px; color: var(--cream-dim); margin-top:9px; margin-bottom:0; }
+  .timer-hint{ font-size:13px; color: var(--text-dim); margin-top:10px; margin-bottom:0; }
 
   .btn-complete{
-    margin-top:14px; width:100%; padding:11px; border-radius:10px;
-    background: transparent; border:1px solid var(--line); color: var(--cream-dim);
-    font-family: var(--font-body); font-weight:600; font-size:13.5px; cursor:pointer;
+    margin-top:14px; width:100%; padding:14px; border-radius:10px;
+    background: transparent; border:1px solid var(--line-strong); color: var(--text-dim);
+    font-family: var(--font-body); font-weight:600; font-size:15px; cursor:pointer;
     display:flex; align-items:center; justify-content:center; gap:7px;
+    min-height:52px;
     transition: background .2s ease, color .2s ease, border-color .2s ease;
   }
-  .btn-complete svg{ width:15px; height:15px; }
+  .btn-complete svg{ width:16px; height:16px; }
   .step.is-done .btn-complete{ background: rgba(147,163,127,0.14); border-color: rgba(147,163,127,.4); color: var(--sage-text); }
 
   /* ---------- notes ---------- */
   .notes-card{
-    background: var(--ember); border:1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); border:1px solid var(--line-strong); border-radius: var(--radius);
     padding: 18px 18px 6px;
   }
-  .note-item{ display:flex; gap:12px; padding-bottom:16px; }
-  .note-item svg{ width:19px; height:19px; flex:none; color: var(--gold); margin-top:1px; }
-  .note-item p{ margin:0; font-size:14px; color: var(--cream-dim); }
-  .note-item strong{ color: var(--cream); font-weight:600; }
+  .note-item{ display:flex; gap:12px; padding-bottom:18px; }
+  .note-item svg{ width:20px; height:20px; flex:none; color: var(--gold); margin-top:2px; }
+  body.cook-mode .note-item svg{ color: var(--wine); }
+  .note-item p{ margin:0; font-size:16px; color: var(--text-dim); line-height:1.65; }
+  .note-item strong{ color: var(--text); font-weight:600; }
 
   footer{ text-align:center; padding: 10px 22px 50px; }
   footer .sign{ font-family: var(--font-display); font-style:italic; color: var(--gold-soft); font-size:16px; }
+  body.cook-mode footer .sign{ color: var(--wine); }
   footer .reset-link{
-    display:inline-block; margin-top:14px; font-family: var(--font-mono); font-size:11.5px;
-    color: var(--cream-dim); background:none; border:none; text-decoration: underline; text-underline-offset:3px;
-    cursor:pointer; padding:6px;
+    display:inline-block; margin-top:14px; font-family: var(--font-mono); font-size:12px;
+    color: var(--text-dim); background:none; border:none; text-decoration: underline; text-underline-offset:3px;
+    cursor:pointer; padding:8px; min-height:44px;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -260,9 +358,6 @@
 </style>
 </head>
 <body>
-<div style="position:fixed;top:12px;left:12px;z-index:200;">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(25,16,11,0.85);backdrop-filter:blur(8px);color:#eccd8e;font-family:'Work Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;padding:8px 14px;border-radius:100px;border:1px solid rgba(241,230,210,0.18);transition:background 0.2s ease;" onmouseover="this.style.background='rgba(217,165,68,0.25)'" onmouseout="this.style.background='rgba(25,16,11,0.85)'">&#8592; Voltar ao site</a>
-</div>
 
 <svg class="visually-hidden" aria-hidden="true">
   <symbol id="icon-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -298,7 +393,30 @@
   <symbol id="icon-knife" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 20L15 9"/><path d="M13 7l4 4 3-3c1-1 1-3-1-4-1-1-3-1-4 1z"/>
   </symbol>
+  <symbol id="icon-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 12H5M12 5l-7 7 7 7"/>
+  </symbol>
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </symbol>
 </svg>
+
+<!-- PAGE HEADER -->
+<header class="page-header" id="pageHeader">
+  <a href="index.html" class="back-btn" aria-label="Voltar ao site principal">
+    <svg width="16" height="16"><use href="#icon-back"/></svg>
+    Voltar
+  </a>
+  <span class="hdr-title">Leitoa Assada V3.0</span>
+  <button class="cook-toggle" id="cookToggle" aria-pressed="false" aria-label="Alternar modo cozinha">
+    <svg width="14" height="14" id="cookIcon"><use href="#icon-sun"/></svg>
+    <span id="cookLabel">Cozinha</span>
+  </button>
+</header>
 
 <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
 
@@ -435,29 +553,62 @@
   "use strict";
 
   // ---------------------------------------------------------------
-  // Data
+  // localStorage helpers (safe — não quebra se bloqueado)
+  // ---------------------------------------------------------------
+  var STORAGE_KEY = 'leitoa-bairrada-state-v3';
+  var COOK_KEY = 'leitoa-cook-mode';
+
+  function safeSetStorage(key, value) {
+    try { localStorage.setItem(key, value); } catch(e) { /* bloqueado ou privado */ }
+  }
+  function safeGetStorage(key) {
+    try { return localStorage.getItem(key); } catch(e) { return null; }
+  }
+
+  // ---------------------------------------------------------------
+  // Cooking mode
+  // ---------------------------------------------------------------
+  var cookToggle = document.getElementById('cookToggle');
+  var cookIcon   = document.getElementById('cookIcon');
+  var cookLabel  = document.getElementById('cookLabel');
+
+  function setCookMode(on) {
+    document.body.classList.toggle('cook-mode', on);
+    cookToggle.setAttribute('aria-pressed', String(on));
+    cookIcon.querySelector('use').setAttribute('href', on ? '#icon-moon' : '#icon-sun');
+    cookLabel.textContent = on ? 'Escuro' : 'Cozinha';
+    safeSetStorage(COOK_KEY, on ? '1' : '0');
+  }
+  cookToggle.addEventListener('click', function() {
+    setCookMode(!document.body.classList.contains('cook-mode'));
+  });
+  // Restore preference
+  if (safeGetStorage(COOK_KEY) === '1') setCookMode(true);
+
+  // ---------------------------------------------------------------
+  // Data (INTACTO — nenhum conteúdo técnico alterado)
   // ---------------------------------------------------------------
   var INGREDIENTS = [
-    { id:'leitoa',   name:'Meia banda de leitoa (leitão fêmea)', base:4,   unit:'kg',                     step:0.5, group:'principal' },
-    { id:'alho',     name:'Alho, dentes amassados',              base:8,   unit:'dente(s)',                step:1,   group:'principal' },
-    { id:'louro',    name:'Folhas de louro',                     base:4,   unit:'folha(s)',                step:1,   group:'principal' },
-    { id:'pimenta',  name:'Pimenta preta em grão',                base:1,   unit:'colher(es) de chá',       step:0.5, group:'principal' },
-    { id:'salgrosso',name:'Sal grosso, para a marinada',         base:1.5, unit:'colher(es) de sopa',      step:0.5, group:'principal' },
-    { id:'vinho',    name:'Vinho branco seco',                   base:250, unit:'ml',                      step:5,   group:'principal' },
-    { id:'banha',    name:'Banha de porco (ou manteiga), para regar', base:100, unit:'g',                  step:5,   group:'crocancia' },
-    { id:'colorau',  name:'Colorau ou páprica doce (opcional)',  base:1,   unit:'colher(es) de sopa',      step:0.5, group:'crocancia' },
-    { id:'salpele',  name:'Sal grosso, camada generosa para a pele', base:2, unit:'colher(es) de sopa',   step:0.5, group:'crocancia' }
+    { id:'leitoa',    name:'Meia banda de leitoa (leitão fêmea)', base:4,   unit:'kg',                     step:0.5, group:'principal' },
+    { id:'alho',      name:'Alho, dentes amassados',              base:8,   unit:'dente(s)',                step:1,   group:'principal' },
+    { id:'louro',     name:'Folhas de louro',                     base:4,   unit:'folha(s)',                step:1,   group:'principal' },
+    { id:'pimenta',   name:'Pimenta preta em grão',               base:1,   unit:'colher(es) de chá',      step:0.5, group:'principal' },
+    { id:'salgrosso', name:'Sal grosso, para a marinada',         base:1.5, unit:'colher(es) de sopa',     step:0.5, group:'principal' },
+    { id:'vinho',     name:'Vinho branco seco',                   base:250, unit:'ml',                     step:5,   group:'principal' },
+    { id:'banha',     name:'Banha de porco (ou manteiga), para regar', base:100, unit:'g',                 step:5,   group:'crocancia' },
+    { id:'colorau',   name:'Colorau ou páprica doce (opcional)',  base:1,   unit:'colher(es) de sopa',     step:0.5, group:'crocancia' },
+    { id:'salpele',   name:'Sal grosso, camada generosa para a pele', base:2, unit:'colher(es) de sopa',  step:0.5, group:'crocancia' }
   ];
 
   var SERVINGS_OPTIONS = [4,6,8,10,12];
   var BASE_SERVINGS = 8;
 
   var PHASES = {
-    idle:    { angle:-90, temp:null, label:'Forno desligado',            icon:'icon-flame', tone:'' },
-    fridge:  { angle:-62, temp:null, label:'Na geladeira — marinando',   icon:'icon-snow',  tone:'phase-tag--cold' },
-    roast:   { angle:8,   temp:180,  label:'Fogo moderado — 180°C',      icon:'icon-flame', tone:'phase-tag--hot' },
-    crisp:   { angle:80,  temp:240,  label:'Fogo forte — 230–250°C',     icon:'icon-flame', tone:'phase-tag--hotter' },
-    resting: { angle:-30, temp:null, label:'Fora do forno — descansando',icon:'icon-snow',  tone:'phase-tag--cold' }
+    idle:    { angle:-90, temp:null, label:'Forno desligado',             icon:'icon-flame', tone:'' },
+    fridge:  { angle:-62, temp:null, label:'Na geladeira — marinando',    icon:'icon-snow',  tone:'phase-tag--cold' },
+    roast:   { angle:8,   temp:180,  label:'Fogo moderado — 180°C',       icon:'icon-flame', tone:'phase-tag--hot' },
+    crisp:   { angle:80,  temp:240,  label:'Fogo forte — 230–250°C',      icon:'icon-flame', tone:'phase-tag--hotter' },
+    resting: { angle:-30, temp:null, label:'Fora do forno — descansando', icon:'icon-snow',  tone:'phase-tag--cold' }
   };
 
   var STEPS = [
@@ -503,33 +654,55 @@
     }
   });
 
-  var STORAGE_KEY = 'leitoa-bairrada-state-v3';
-
+  // ---------------------------------------------------------------
+  // Persistence — localStorage (corrigido: era window.storage)
+  // ---------------------------------------------------------------
   function saveState(){
-    try{
-      window.storage && window.storage.set(STORAGE_KEY, JSON.stringify(state));
-    }catch(e){ console.error('Falha ao salvar progresso:', e); }
+    try {
+      safeSetStorage(STORAGE_KEY, JSON.stringify(state));
+    } catch(e) { console.error('Falha ao salvar progresso:', e); }
   }
 
   function loadState(){
-    if (!window.storage){ render(); return; }
-    window.storage.get(STORAGE_KEY).then(function(res){
-      if (res && res.value){
-        try{
-          var loaded = JSON.parse(res.value);
-          state.servings = loaded.servings || BASE_SERVINGS;
-          state.checked = loaded.checked || {};
-          state.done = loaded.done || {};
-          state.currentPhase = loaded.currentPhase || 'idle';
-          if (loaded.timers){
-            Object.keys(loaded.timers).forEach(function(k){
-              if (state.timers[k]) state.timers[k] = loaded.timers[k];
-            });
-          }
-        }catch(e){ console.error('Progresso salvo inválido:', e); }
-      }
-      render();
-    }).catch(function(){ render(); });
+    var raw = safeGetStorage(STORAGE_KEY);
+    if (raw) {
+      try {
+        var loaded = JSON.parse(raw);
+        state.servings = loaded.servings || BASE_SERVINGS;
+        state.checked  = loaded.checked  || {};
+        state.done     = loaded.done     || {};
+        state.currentPhase = loaded.currentPhase || 'idle';
+        if (loaded.timers) {
+          Object.keys(loaded.timers).forEach(function(k){
+            if (!state.timers[k]) return;
+            var lt = loaded.timers[k];
+            state.timers[k].running         = false; // nunca retomar "running" direto
+            state.timers[k].pausedRemaining = lt.pausedRemaining;
+            state.timers[k].startedAt       = lt.startedAt;
+            state.timers[k].duration        = lt.duration || state.timers[k].duration;
+
+            // Recalcular: se estava rodando quando fechou, calcular quanto restou
+            if (lt.running && lt.startedAt) {
+              var elapsed = (Date.now() - lt.startedAt) / 1000;
+              var rem = Math.max(0, (lt.duration || state.timers[k].duration) - elapsed);
+              if (rem <= 0) {
+                // Terminou enquanto a página estava fechada
+                state.timers[k].pausedRemaining = 0;
+                state.timers[k].startedAt = null;
+                // Marcar como concluído
+                if (!loaded.done) state.done = {};
+                state.done[k] = true;
+              } else {
+                // Ainda tem tempo: pausar no ponto certo
+                state.timers[k].pausedRemaining = rem;
+                state.timers[k].startedAt = null;
+              }
+            }
+          });
+        }
+      } catch(e) { console.error('Progresso salvo inválido:', e); }
+    }
+    render();
   }
 
   // ---------------------------------------------------------------
@@ -591,14 +764,12 @@
         osc.start(ctx.currentTime + t);
         osc.stop(ctx.currentTime + t + 0.2);
       });
-    }catch(e){ /* silencioso se o áudio não estiver disponível */ }
+    }catch(e){ /* silencioso */ }
   }
 
   // ---------------------------------------------------------------
   // Rendering
   // ---------------------------------------------------------------
-  var els = {};
-
   function renderServingsRow(){
     var row = document.getElementById('servingsRow');
     row.innerHTML = '';
@@ -670,9 +841,8 @@
           '<div class="timer">' +
             '<div class="timer-display" id="tdisp-' + step.id + '" role="timer" aria-label="Tempo restante">--:--:--</div>' +
             '<div class="timer-controls">' +
-              '<button class="btn-icon is-primary" data-action="start" data-step="' + step.id + '" aria-label="Iniciar"><svg><use href="#icon-play"></use></svg></button>' +
-              '<button class="btn-icon" data-action="pause" data-step="' + step.id + '" aria-label="Pausar"><svg><use href="#icon-pause"></use></svg></button>' +
-              '<button class="btn-icon" data-action="reset" data-step="' + step.id + '" aria-label="Reiniciar etapa"><svg><use href="#icon-reset"></use></svg></button>' +
+              '<button class="btn-icon is-primary" data-action="start" data-step="' + step.id + '" aria-label="Iniciar cronômetro"><svg><use href="#icon-play"></use></svg></button>' +
+              '<button class="btn-icon" data-action="reset" data-step="' + step.id + '" aria-label="Reiniciar cronômetro"><svg><use href="#icon-reset"></use></svg></button>' +
             '</div>' +
             '<p class="timer-hint">' + step.timer.hint + '</p>' +
           '</div>';
@@ -724,7 +894,9 @@
       var startBtn = article.querySelector('[data-action="start"]');
       if (startBtn){
         var t = state.timers[step.id];
-        startBtn.querySelector('svg use').setAttribute('href', t && t.running ? '#icon-pause' : '#icon-play');
+        var isRunning = t && t.running;
+        startBtn.querySelector('svg use').setAttribute('href', isRunning ? '#icon-pause' : '#icon-play');
+        startBtn.setAttribute('aria-label', isRunning ? 'Pausar cronômetro' : 'Iniciar cronômetro');
       }
     });
   }
@@ -777,22 +949,17 @@
 
     if (action === 'start'){
       if (t.running){
-        // acts as pause when already running
+        // pausar
         t.pausedRemaining = remainingFor(stepId);
         t.running = false;
         t.startedAt = null;
       } else {
         var remaining = t.pausedRemaining !== null ? t.pausedRemaining : t.duration;
+        if (remaining <= 0) { remaining = t.duration; } // reiniciar se zerado
         t.startedAt = now - (t.duration - remaining) * 1000;
         t.running = true;
         t.pausedRemaining = null;
         setPhaseFromStep(stepId);
-      }
-    } else if (action === 'pause'){
-      if (t.running){
-        t.pausedRemaining = remainingFor(stepId);
-        t.running = false;
-        t.startedAt = null;
       }
     } else if (action === 'reset'){
       t.running = false;
@@ -809,7 +976,7 @@
   }
 
   // ---------------------------------------------------------------
-  // Tick loop
+  // Tick loop (1s)
   // ---------------------------------------------------------------
   var lastCompleted = {};
   setInterval(function(){
@@ -870,4 +1037,3 @@
 </script>
 </body>
 </html>
-
