@@ -1,0 +1,21 @@
+{
+  "name": "Leitoa Assada V3.0",
+  "short_name": "Leitoa V3.0",
+  "description": "Guia completo para meia banda de leitoa assada no forno doméstico, inspirada na Bairrada.",
+  "start_url": "../index.html",
+  "display": "standalone",
+  "background_color": "#19100b",
+  "theme_color": "#7c2632",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

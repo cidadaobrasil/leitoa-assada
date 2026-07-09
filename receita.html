@@ -8,6 +8,11 @@
 
 <link rel="canonical" href="https://cidadaobrasil.github.io/leitoa-assada/receita.html">
 
+<!-- Favicon & Icons -->
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cidadaobrasil.github.io/leitoa-assada/receita.html">
 <meta property="og:title" content="Receita Interativa — Leitoa Assada V3.0">
@@ -16,12 +21,13 @@
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Leitoa Assada V3.0 — meia banda no forno doméstico">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Receita Interativa — Leitoa Assada V3.0">
 <meta name="twitter:description" content="Receita interativa de leitoa assada em meia banda, forno doméstico, inspirada na Bairrada.">
 <meta name="twitter:image" content="https://cidadaobrasil.github.io/leitoa-assada/assets/og-image.jpg">
-<meta name="theme-color" content="#19100b">
+<meta name="theme-color" content="#7c2632">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +68,11 @@
   }
 
   *{ box-sizing:border-box; }
-  html{ -webkit-text-size-adjust:100%; }
+  html{
+    -webkit-text-size-adjust:100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
 
   body{
     margin:0;
@@ -655,7 +665,7 @@
   });
 
   // ---------------------------------------------------------------
-  // Persistence — localStorage (corrigido: era window.storage)
+  // Persistence — localStorage
   // ---------------------------------------------------------------
   function saveState(){
     try {
@@ -906,7 +916,9 @@
       if (!step.timer) return;
       var disp = document.getElementById('tdisp-' + step.id);
       if (!disp) return;
-      disp.textContent = formatTime(remainingFor(step.id));
+      var timeStr = formatTime(remainingFor(step.id));
+      disp.textContent = timeStr;
+      disp.setAttribute('aria-label', 'Tempo restante: ' + timeStr);
     });
   }
 

@@ -6,7 +6,12 @@
 <title>Leitoa Assada V3.0 — forno doméstico</title>
 <meta name="description" content="Guia completo para meia banda de leitoa assada: receita interativa, PDF, guia de bolso, mapa mental, áudio e vídeo. Inspirada na Bairrada, adaptada ao forno doméstico.">
 <link rel="canonical" href="https://cidadaobrasil.github.io/leitoa-assada/">
-<meta name="theme-color" content="#19100b">
+<meta name="theme-color" content="#7c2632">
+
+<!-- Favicon & Icons -->
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
 
 <!-- Open Graph / WhatsApp / Facebook -->
 <meta property="og:type" content="website">
@@ -17,6 +22,7 @@
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Leitoa Assada V3.0 — meia banda no forno doméstico">
 <meta property="og:locale" content="pt_BR">
 
 <!-- Twitter Card -->
@@ -421,6 +427,11 @@ video { width:100%; display:block; max-height:70svh; object-fit:contain; backgro
   max-width:100%; max-height:80svh;
   border-radius:6px; box-shadow:0 20px 80px rgba(0,0,0,0.8);
   object-fit:contain; user-select:none;
+  transition: transform 0.2s ease-out;
+  cursor: zoom-in;
+}
+.lightbox img.is-zoomed {
+  transition: transform 0.05s linear;
 }
 .lightbox-toolbar {
   display:flex; align-items:center; justify-content:center;
@@ -428,21 +439,38 @@ video { width:100%; display:block; max-height:70svh; object-fit:contain; backgro
 }
 .lb-btn {
   display:inline-flex; align-items:center; gap:7px;
-  padding:10px 18px; border-radius:100px; min-height:44px;
-  font-size:13px; font-weight:600; color:var(--cream);
+  padding:12px 22px; border-radius:100px; min-height:48px;
+  font-size:14px; font-weight:600; color:var(--cream);
   background:rgba(241,230,210,0.1); border:1px solid rgba(241,230,210,0.2);
-  transition:background 0.2s;
+  transition:background 0.2s, transform 0.15s;
+  cursor:pointer;
 }
 .lb-btn:hover { background:rgba(241,230,210,0.2); }
+.lb-btn:active { transform:scale(0.97); }
+.lb-btn.primary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--char);
+  box-shadow: 0 4px 18px rgba(217,165,68,0.4);
+}
+.lb-btn.primary:hover {
+  background: var(--gold-soft);
+  border-color: var(--gold-soft);
+  box-shadow: 0 6px 22px rgba(217,165,68,0.55);
+}
 .lb-btn svg { width:15px; height:15px; }
 .lb-btn-close {
-  position:absolute; top:12px; right:12px;
-  width:48px; height:48px; border-radius:50%;
-  background:rgba(241,230,210,0.12); color:var(--cream);
+  position:absolute; top:16px; right:16px;
+  width:56px; height:56px; border-radius:50%;
+  background:rgba(241,230,210,0.15); color:var(--cream);
   display:flex; align-items:center; justify-content:center;
-  font-size:24px; transition:background 0.2s;
+  font-size:28px; transition:background 0.2s, transform 0.15s;
+  border:1px solid rgba(241,230,210,0.25);
+  cursor:pointer;
+  z-index: 10;
 }
-.lb-btn-close:hover { background:rgba(241,230,210,0.24); }
+.lb-btn-close:hover { background:rgba(241,230,210,0.3); transform:scale(1.05); }
+.lb-btn-close:active { transform:scale(0.95); }
 
 /* ===== MOBILE DOCK ===== */
 .mobile-dock {
@@ -503,8 +531,8 @@ video { width:100%; display:block; max-height:70svh; object-fit:contain; backgro
     <img id="lightboxImg" src="" alt="">
   </div>
   <div class="lightbox-toolbar">
-    <a id="lightboxOpen" href="#" target="_blank" rel="noopener" class="lb-btn">
-      <svg width="15" height="15"><use href="#icon-external"/></svg>Abrir em nova aba
+    <a id="lightboxOpen" href="#" target="_blank" rel="noopener" class="lb-btn primary">
+      <svg width="15" height="15"><use href="#icon-external"/></svg>Abrir original
     </a>
     <a id="lightboxDownload" href="#" download class="lb-btn">
       <svg width="15" height="15"><use href="#icon-download"/></svg>Baixar
@@ -631,6 +659,10 @@ video { width:100%; display:block; max-height:70svh; object-fit:contain; backgro
         <svg class="btn-icon-svg"><use href="#icon-download"/></svg>
         Baixar PDF
       </a>
+      <button class="btn-ghost" onclick="shareWebsite()" id="btn-share-hero" aria-label="Compartilhar link da receita">
+        <svg class="btn-icon-svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 10.742l5.028-2.514m0 5.544l-5.028-2.514M12 12a3 3 0 11-6 0 3 3 0 016 0zm6-9a3 3 0 11-6 0 3 3 0 016 0zm0 18a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Compartilhar
+      </button>
     </div>
   </div>
   <div class="hero-scroll" aria-hidden="true">
@@ -815,7 +847,6 @@ video { width:100%; display:block; max-height:70svh; object-fit:contain; backgro
       <div class="audio-player-wrap">
         <audio controls preload="metadata" id="audio-player" aria-label="Áudio: O Segredo da Pururuca na Geladeira">
           <source src="assets/segredo-pururuca-96k.m4a" type="audio/mp4">
-          <source src="assets/segredo-pururuca.m4a" type="audio/x-m4a">
           Seu navegador não suporta o player de áudio.
           <a href="assets/segredo-pururuca-96k.m4a" download>Baixe o áudio aqui</a>.
         </audio>
@@ -978,6 +1009,10 @@ video { width:100%; display:block; max-height:70svh; object-fit:contain; backgro
         </div>
       </div>
     </div>
+    <button class="btn-cta-full" style="margin-top: 24px; background: #25d366; color: white; box-shadow: 0 4px 20px rgba(37,211,102,0.3); border: none;" onclick="shareWebsite()" aria-label="Compartilhar receita no WhatsApp">
+      <svg class="btn-icon-svg" style="margin-right: 8px; width: 18px; height: 18px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 10.742l5.028-2.514m0 5.544l-5.028-2.514M12 12a3 3 0 11-6 0 3 3 0 016 0zm6-9a3 3 0 11-6 0 3 3 0 016 0zm0 18a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Compartilhar no WhatsApp
+    </button>
   </section>
 
 </main>
@@ -1016,6 +1051,7 @@ var _lastOpener = null;
 function showSection(id, opts) {
   opts = opts || {};
   var doScroll = opts.scroll !== false;
+  var updateHistory = opts.updateHistory !== false;
 
   if (VALID.indexOf(id) === -1) return;
 
@@ -1038,7 +1074,7 @@ function showSection(id, opts) {
   if (tab) {
     tab.classList.add('is-active');
     tab.setAttribute('aria-selected', 'true');
-    tab.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+    tab.scrollIntoView({ behavior: doScroll ? 'smooth' : 'auto', block: 'nearest', inline: 'center' });
   }
   if (dock) dock.classList.add('is-active');
 
@@ -1049,7 +1085,7 @@ function showSection(id, opts) {
     }
   }
 
-  if (history.pushState) {
+  if (updateHistory && history.pushState) {
     history.pushState({ section: id }, '', '#' + id);
   }
 }
@@ -1091,26 +1127,52 @@ document.querySelectorAll('.image-wrap[tabindex]').forEach(function(el) {
   });
 });
 
-// Load section from hash (no scroll on initial load)
+// Load section from hash (no scroll on initial load, no new history entry)
 (function() {
   var hash = window.location.hash.replace('#', '');
   if (hash && VALID.indexOf(hash) !== -1) {
-    showSection(hash, { scroll: false });
+    showSection(hash, { scroll: false, updateHistory: false });
+  } else {
+    // Inicializar o estado do histórico para a seção padrão 'receita' sem empurrar nova entrada
+    if (history.replaceState) {
+      history.replaceState({ section: 'receita' }, '', '');
+    }
   }
-  // else receita is already active via HTML class
 })();
 
-// popstate (browser back/forward)
+// popstate (browser back/forward) - does NOT push history state to prevent loops
 window.addEventListener('popstate', function(e) {
   var id = (e.state && e.state.section) || window.location.hash.replace('#','') || 'receita';
-  if (VALID.indexOf(id) !== -1) showSection(id, { scroll: false });
+  if (VALID.indexOf(id) !== -1) showSection(id, { scroll: false, updateHistory: false });
 });
+
+// ===== SHARE FUNCTION =====
+function shareWebsite() {
+  var shareData = {
+    title: 'Leitoa Assada V3.0',
+    text: 'Guia completo para meia banda de leitoa assada no forno doméstico.',
+    url: window.location.href
+  };
+  
+  if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+    navigator.share(shareData).catch(function(err) {
+      console.log('Compartilhamento cancelado ou falhou:', err);
+    });
+  } else {
+    // Fallback: abrir link do WhatsApp
+    window.open('https://wa.me/?text=https%3A%2F%2Fcidadaobrasil.github.io%2Fleitoa-assada%2F', '_blank');
+  }
+}
 
 // ===== LIGHTBOX =====
 var lightbox     = document.getElementById('lightbox');
 var lightboxImg  = document.getElementById('lightboxImg');
 var lightboxOpen = document.getElementById('lightboxOpen');
 var lightboxDl   = document.getElementById('lightboxDownload');
+
+var isZoomed = false;
+var startX = 0, startY = 0;
+var translateX = 0, translateY = 0;
 
 function openLightbox(src, alt, filename) {
   _lastOpener = document.activeElement;
@@ -1128,6 +1190,10 @@ function closeLightbox() {
   lightbox.classList.remove('is-open');
   document.body.style.overflow = '';
   lightboxImg.src = '';
+  lightboxImg.style.transform = 'none';
+  lightboxImg.classList.remove('is-zoomed');
+  isZoomed = false;
+  translateX = 0; translateY = 0;
   if (_lastOpener && typeof _lastOpener.focus === 'function') {
     _lastOpener.focus();
   }
@@ -1136,10 +1202,93 @@ function closeLightbox() {
 
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', function(e) {
-  if (e.target === lightbox) closeLightbox();
+  if (e.target === lightbox || e.target === document.querySelector('.lightbox-img-wrap')) closeLightbox();
 });
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+});
+
+// Toggle zoom on click/tap
+lightboxImg.addEventListener('click', function(e) {
+  e.stopPropagation();
+  isZoomed = !isZoomed;
+  lightboxImg.classList.toggle('is-zoomed', isZoomed);
+  if (!isZoomed) {
+    lightboxImg.style.transform = 'translate(0px, 0px) scale(1)';
+    translateX = 0; translateY = 0;
+    lightboxImg.style.cursor = 'zoom-in';
+  } else {
+    lightboxImg.style.transform = 'translate(0px, 0px) scale(2.5)';
+    lightboxImg.style.cursor = 'grab';
+  }
+});
+
+// Drag/Pan logic for desktop
+lightboxImg.addEventListener('mousedown', function(e) {
+  if (!isZoomed) return;
+  e.preventDefault();
+  startX = e.clientX - translateX;
+  startY = e.clientY - translateY;
+  lightboxImg.style.cursor = 'grabbing';
+  lightboxImg.style.transition = 'none';
+  
+  function onMouseMove(e) {
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    
+    var maxW = window.innerWidth * 0.8;
+    var maxH = window.innerHeight * 0.8;
+    if (translateX > maxW) translateX = maxW;
+    if (translateX < -maxW) translateX = -maxW;
+    if (translateY > maxH) translateY = maxH;
+    if (translateY < -maxH) translateY = -maxH;
+
+    lightboxImg.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(2.5)';
+  }
+  
+  function onMouseUp() {
+    lightboxImg.style.cursor = 'grab';
+    lightboxImg.style.transition = 'transform 0.2s ease-out';
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
+  
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
+// Drag/Pan logic for mobile (touch)
+lightboxImg.addEventListener('touchstart', function(e) {
+  if (!isZoomed || e.touches.length !== 1) return;
+  var touch = e.touches[0];
+  startX = touch.clientX - translateX;
+  startY = touch.clientY - translateY;
+  lightboxImg.style.transition = 'none';
+  
+  function onTouchMove(e) {
+    if (e.touches.length !== 1) return;
+    var touch = e.touches[0];
+    translateX = touch.clientX - startX;
+    translateY = touch.clientY - startY;
+
+    var maxW = window.innerWidth * 0.8;
+    var maxH = window.innerHeight * 0.8;
+    if (translateX > maxW) translateX = maxW;
+    if (translateX < -maxW) translateX = -maxW;
+    if (translateY > maxH) translateY = maxH;
+    if (translateY < -maxH) translateY = -maxH;
+
+    lightboxImg.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(2.5)';
+  }
+  
+  function onTouchEnd() {
+    lightboxImg.style.transition = 'transform 0.2s ease-out';
+    document.removeEventListener('touchmove', onTouchMove);
+    document.removeEventListener('touchend', onTouchEnd);
+  }
+  
+  document.addEventListener('touchmove', onTouchMove);
+  document.addEventListener('touchend', onTouchEnd);
 });
 </script>
 
