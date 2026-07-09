@@ -1,0 +1,24 @@
+# Sistema operacional
+Thumbs.db
+.DS_Store
+desktop.ini
+ehthumbs.db
+
+# Temporários e cache
+*.tmp
+*.bak
+*.swp
+*~
+.cache/
+
+# Node (caso seja usado futuramente)
+node_modules/
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
