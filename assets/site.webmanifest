@@ -1,11 +1,13 @@
 {
-  "name": "Leitoa Assada V3.0",
-  "short_name": "Leitoa V3.0",
-  "description": "Guia completo para meia banda de leitoa assada no forno doméstico, inspirada na Bairrada.",
-  "start_url": "../index.html",
+  "name": "Guia do Condutor — HB20 Comfort 25/26",
+  "short_name": "HB20 Guia",
+  "description": "Guia rápido do condutor para o Hyundai HB20 Comfort 2025/2026 alugado.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#19100b",
-  "theme_color": "#7c2632",
+  "background_color": "#0a0c0f",
+  "theme_color": "#0a0c0f",
+  "lang": "pt-BR",
   "icons": [
     {
       "src": "icon-192.png",
