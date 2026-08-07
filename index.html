@@ -225,6 +225,15 @@
   table.spec-table tr:last-child td{border-bottom:none;}
   .confirm-yes{color:var(--teal); font-family:'JetBrains Mono',monospace; font-size:11.5px;}
 
+  /* botão real: foto do símbolo + nome */
+  .btn-row{display:flex; align-items:center; gap:9px;}
+  .btn-ic{
+    width:34px; height:34px; border-radius:8px; object-fit:cover;
+    border:1px solid var(--line-soft); flex:0 0 auto; background:#0c0e11;
+  }
+  .btn-ic.wide{width:56px; height:26px; border-radius:6px; object-fit:cover;}
+  .btn-cap{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--text-dimmer); margin-top:8px;}
+
   /* checklist */
   .checklist{list-style:none; margin:0; padding:0;}
   .checklist li{
@@ -431,13 +440,16 @@
   <div class="card">
     <h3><span class="num">A</span> Lado esquerdo — som, telefone e voz</h3>
     <table class="spec-table">
-      <tr><td>Voz</td><td>Aciona comando de voz. Com Android Auto, chama o Google Assistente.</td></tr>
-      <tr><td>MODE</td><td>Alterna fonte de áudio (rádio ↔ mídia).</td></tr>
-      <tr><td>VOL +/-</td><td>Aumenta ou diminui o volume.</td></tr>
-      <tr><td>▲ / ▼</td><td>Rádio: troca estação memorizada. Mídia: faixa anterior/próxima. Segurar: busca/avança.</td></tr>
-      <tr><td>Telefone</td><td>Atende, encerra ou acessa chamada Bluetooth.</td></tr>
-      <tr><td>★</td><td>Atalho configurável da central.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-voz.webp" alt="Símbolo de comando de voz no volante" loading="lazy">Voz</div></td><td>Aciona comando de voz. Com Android Auto, chama o Google Assistente.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-mode.webp" alt="Botão MODE no volante" loading="lazy">MODE</div></td><td>Alterna fonte de áudio (rádio ↔ mídia).</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-vol-mais.webp" alt="Símbolo de aumentar volume no volante" loading="lazy">VOL +</div></td><td>Aumenta o volume.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-vol-menos.webp" alt="Símbolo de diminuir volume no volante" loading="lazy">VOL −</div></td><td>Diminui o volume.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-seta-cima.webp" alt="Seta para cima no volante" loading="lazy">▲</div></td><td>Rádio: estação memorizada seguinte. Mídia: próxima faixa. Segurar: avança.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-seta-baixo.webp" alt="Seta para baixo no volante" loading="lazy">▼</div></td><td>Rádio: estação memorizada anterior. Mídia: faixa anterior. Segurar: retrocede.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-telefone.webp" alt="Símbolo de telefone no volante" loading="lazy">Telefone</div></td><td>Atende, encerra ou acessa chamada Bluetooth.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/ve-estrela.webp" alt="Botão de estrela (atalho) no volante" loading="lazy">★</div></td><td>Atalho configurável da central.</td></tr>
     </table>
+    <p class="btn-cap">FOTOS DOS BOTÕES · VOLANTE DESTE HB20 COMFORT</p>
     <div class="callout info">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
       Com Android Auto conectado: aperte o botão de voz e diga "Navegar para…", "Ligar para…" ou "Tocar…".
@@ -447,20 +459,23 @@
   <div class="card">
     <h3><span class="num">B</span> Lado direito — painel e velocidade</h3>
     <table class="spec-table">
-      <tr><td>Ícone de páginas</td><td>Alterna as telas do computador de bordo no painel.</td></tr>
-      <tr><td>▲ / ▼</td><td>Navega pelas informações exibidas na tela do painel.</td></tr>
-      <tr><td>OK</td><td>Confirma seleção. Em algumas telas, segurar zera o campo (ex: consumo médio).</td></tr>
-      <tr><td>Botão de assistência</td><td>Ativa piloto automático ou limitador de velocidade.</td></tr>
-      <tr><td>+ / -</td><td>Ajusta a velocidade programada.</td></tr>
-      <tr><td>Retomar/cancelar</td><td>Pausa ou retoma a velocidade ajustada.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-paginas.webp" alt="Ícone de páginas no volante" loading="lazy">Páginas</div></td><td>Alterna as telas do computador de bordo no painel.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-seta-cima.webp" alt="Seta para cima no volante direito" loading="lazy">▲</div></td><td>Sobe nas informações exibidas na tela do painel.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-seta-baixo.webp" alt="Seta para baixo no volante direito" loading="lazy">▼</div></td><td>Desce nas informações exibidas na tela do painel.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-ok.webp" alt="Botão OK no volante" loading="lazy">OK</div></td><td>Confirma seleção. Em algumas telas, segurar zera o campo (ex: consumo médio).</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-assistencia.webp" alt="Símbolo do botão de assistência — carrinho com velocímetro — no volante" loading="lazy">Assistência</div></td><td>Ativa piloto automático ou limitador de velocidade.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-mais.webp" alt="Botão de mais no volante" loading="lazy">+</div></td><td>Aumenta a velocidade programada.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-menos.webp" alt="Botão de menos no volante" loading="lazy">−</div></td><td>Diminui a velocidade programada.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/vd-retomar.webp" alt="Símbolo de retomar/cancelar no volante" loading="lazy">Retomar/cancelar</div></td><td>Pausa ou retoma a velocidade ajustada.</td></tr>
     </table>
+    <p class="btn-cap">FOTOS DOS BOTÕES · VOLANTE DESTE HB20 COMFORT</p>
   </div>
 
   <div class="card">
     <h3><span class="num">C</span> Piloto automático — passo a passo</h3>
     <ol>
       <li>Dirija acima de <b>40 km/h</b> (velocidade mínima de ativação).</li>
-      <li>Chegue à velocidade desejada e acione o botão de assistência.</li>
+      <li>Chegue à velocidade desejada e acione o botão de assistência <img class="btn-ic" style="vertical-align:middle; margin-top:-4px;" src="assets/icons/vd-assistencia.webp" alt="Símbolo do botão de assistência no volante"></li>
       <li>Confirme no painel que a velocidade foi salva.</li>
       <li><code class="mono">+</code> aumenta, <code class="mono">-</code> diminui.</li>
       <li>Pisar no freio <b>cancela</b> temporariamente o controle.</li>
@@ -473,7 +488,7 @@
 
   <div class="card">
     <h3><span class="num">D</span> Limitador de velocidade</h3>
-    <p>Programa uma velocidade máxima de referência. Pressione e segure o botão de assistência até entrar no modo de limite, depois ajuste com <code class="mono">+ / -</code>. Útil em vias urbanas com fiscalização.</p>
+    <p>Programa uma velocidade máxima de referência. Pressione e segure o botão de assistência <img class="btn-ic" style="vertical-align:middle; margin-top:-4px;" src="assets/icons/vd-assistencia.webp" alt="Símbolo do botão de assistência no volante"> até entrar no modo de limite, depois ajuste com <code class="mono">+ / -</code>. Útil em vias urbanas com fiscalização.</p>
   </div>
 
   <div class="card">
@@ -566,14 +581,16 @@
   <div class="card">
     <h3><span class="num">A</span> Botões físicos</h3>
     <table class="spec-table">
-      <tr><td>Giratório esq.</td><td>Liga/desliga o áudio e controla o volume.</td></tr>
-      <tr><td>RADIO</td><td>Abre o rádio FM.</td></tr>
-      <tr><td>MEDIA</td><td>Abre mídia do telefone/USB.</td></tr>
-      <tr><td>SEEK / TRACK</td><td>Estação ou faixa anterior/próxima. Segurar: busca/avança.</td></tr>
-      <tr><td>★</td><td>Atalho configurável.</td></tr>
-      <tr><td>SETUP</td><td>Abre as configurações.</td></tr>
-      <tr><td>Giratório dir.</td><td>Sintonia/navegação conforme a tela.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/c-power-vol.webp" alt="Botão giratório de liga/desliga e volume da central" loading="lazy">Giratório esq.</div></td><td>Liga/desliga o áudio e controla o volume.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic wide" src="assets/icons/c-radio.webp" alt="Botão RADIO da central" loading="lazy">RADIO</div></td><td>Abre o rádio FM.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic wide" src="assets/icons/c-media.webp" alt="Botão MEDIA da central" loading="lazy">MEDIA</div></td><td>Abre mídia do telefone/USB.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic wide" src="assets/icons/c-seek.webp" alt="Botão SEEK da central" loading="lazy">SEEK</div></td><td>Estação anterior/próxima. Segurar: busca.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic wide" src="assets/icons/c-track.webp" alt="Botão TRACK da central" loading="lazy">TRACK</div></td><td>Faixa anterior/próxima. Segurar: avança.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/c-estrela.webp" alt="Botão de estrela (atalho) da central" loading="lazy">★</div></td><td>Atalho configurável.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic wide" src="assets/icons/c-setup.webp" alt="Botão SETUP da central" loading="lazy">SETUP</div></td><td>Abre as configurações.</td></tr>
+      <tr><td><div class="btn-row"><img class="btn-ic" src="assets/icons/c-sintonia.webp" alt="Botão giratório de sintonia/navegação da central" loading="lazy">Giratório dir.</div></td><td>Sintonia/navegação conforme a tela.</td></tr>
     </table>
+    <p class="btn-cap">FOTOS DOS BOTÕES · CENTRAL blueMedia DESTE HB20 COMFORT</p>
   </div>
 
   <div class="card">
